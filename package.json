@@ -1,0 +1,23 @@
+{
+  "name": "a1",
+  "version": "1.0.0",
+	"type": "module",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aangelinux/1dv609-a1.git"
+  },
+  "author": "Angelina Larsson",
+  "license": "MIT",
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "eslint": "^9.39.1",
+    "jest": "^30.2.0",
+    "jest-environment-jsdom": "^30.2.0",
+    "prettier": "3.6.2"
+  }
+}
