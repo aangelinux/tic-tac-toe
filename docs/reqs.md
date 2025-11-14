@@ -3,7 +3,7 @@
 <!-- AI algorithms: Random, Heuristic-Based, Minimax -->
   
 ## Req 1 Board
-UI should display a board containing 3 x 3 tiles.
+UI should display a board containing 3 x 3 tiles. [x]
   
 ## Req 2 Interactivity
 Player should be able to mark one **empty** tile at a time by pressing on it.

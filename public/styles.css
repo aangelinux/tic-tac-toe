@@ -1,0 +1,23 @@
+h1 {
+	justify-self: center;
+	font-size: 2rem;
+	font-weight: bold;
+	font-family: Verdana, Geneva, Tahoma, sans-serif
+}
+
+.board {
+	justify-self: center;
+	width: 500px;
+	height: 500px;
+	display: grid;
+	grid-template-columns: auto auto auto;
+	grid-template-rows: auto auto auto;
+	gap: 3px;
+	padding: 5px;
+	background-color: lightblue;
+}
+
+.tile {
+	border: 3px solid black;
+	border-radius: 5px;
+}
