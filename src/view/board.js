@@ -30,13 +30,35 @@ export class Board extends HTMLElement {
 		} else {
 			const svg = this.#drawSVG(tile)
 			tile.appendChild(svg)
-			const nought = this.#drawNought(tile)
-			svg.appendChild(nought)
+			svg.appendChild(this.#drawNought(tile))
 			tile.marked = true		
 		}
 	}
 
 	markRandom() {
+		const tile = this.#randomize()
+
+		if (tile.marked) {
+			return
+		} else {
+			const svg = this.#drawSVG(tile)
+			tile.appendChild(svg)
+			svg.appendChild(this.#drawForwardDiagonal(tile))
+			svg.appendChild(this.#drawBackwardDiagonal(tile))
+			tile.marked = true
+		}
+	}
+
+	#randomize() {
+		const index = Math.floor(Math.random() * 8)
+
+		let tile = this.tiles[index]
+		while (tile.marked === true) {
+			const index = Math.floor(Math.random() * 8)
+			tile = this.tiles[index]
+		}
+
+		return tile
 	}
 
 	#drawSVG(tile) {
@@ -50,12 +72,34 @@ export class Board extends HTMLElement {
 
 	#drawNought(tile) {
 		const nought = document.createElementNS("http://www.w3.org/2000/svg", "circle")
-		nought.setAttribute("r", (tile.offsetHeight / 3)) // Remove magic number
+		nought.setAttribute("r", (tile.offsetHeight / 4)) // Remove magic number
 		nought.setAttribute("cx", (tile.offsetWidth / 2))
 		nought.setAttribute("cy", (tile.offsetHeight / 2))
 		nought.classList.add("nought")
 
 		return nought
+	}
+
+	#drawBackwardDiagonal(tile) {
+		const cross = document.createElementNS("http://www.w3.org/2000/svg", "line")
+		cross.setAttribute("x1", (tile.offsetWidth / 4))
+		cross.setAttribute("y1", (tile.offsetWidth / 4))
+		cross.setAttribute("x2", (tile.offsetWidth / 4) * 3)
+		cross.setAttribute("y2", (tile.offsetWidth / 4) * 3)
+		cross.classList.add("cross")
+
+		return cross
+	}
+
+	#drawForwardDiagonal(tile) {
+		const cross = document.createElementNS("http://www.w3.org/2000/svg", "line")
+		cross.setAttribute("x1", (tile.offsetWidth / 4) * 3)
+		cross.setAttribute("y1", (tile.offsetWidth / 4))
+		cross.setAttribute("x2", (tile.offsetWidth / 4))
+		cross.setAttribute("y2", (tile.offsetWidth / 4) * 3)
+		cross.classList.add("cross")
+
+		return cross
 	}
 }
 

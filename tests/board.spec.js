@@ -58,7 +58,7 @@ describe("AI", () => {
 	it("should mark a random empty tile during their turn", () => {
 		//Arrange
 		const board = new Board()
-		const spy = jest.spyOn(board, "markRandom")
+		const markRandom = jest.spyOn(board, "markRandom")
 
 		//Act
 		board.connectedCallback()
@@ -66,6 +66,6 @@ describe("AI", () => {
 		board.tiles[0].dispatchEvent(click)
 
 		//Assert
-		expect(spy).toHaveBeenCalled()
+		expect(markRandom).toHaveBeenCalled()
 	})
 })

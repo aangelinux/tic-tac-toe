@@ -28,6 +28,7 @@ template.innerHTML = `
 		.tile {
 			border: 3px solid black;
 			border-radius: 5px;
+			cursor: pointer;
 		}
 
 		.svg {
@@ -36,6 +37,11 @@ template.innerHTML = `
 
 		.nought {
 			fill: none;
+			stroke: black;
+			stroke-width: 10;
+		}
+
+		.cross {
 			stroke: black;
 			stroke-width: 10;
 		}
