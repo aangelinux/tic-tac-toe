@@ -2,7 +2,7 @@
  * Unit tests.
  */
 
-import { describe, it, expect } from "@jest/globals"
+import { describe, it, expect, jest } from "@jest/globals"
 import { Board } from "../src/board"
 import { fileURLToPath } from 'url'
 import path from 'path'
@@ -17,6 +17,20 @@ beforeEach(() => {
 })
 
 describe("Board", () => {
+	it("should call draw method when player clicks on an empty tile", () => {
+		//Arrange
+		const board = new Board()
+
+		//Act
+		const click = new Event("click")
+		const targetTile = board.tiles[0]
+		targetTile.dispatchEvent(click)
+		const spy = jest.spyOn(board, "drawMark")
+
+		//Assert
+		expect(spy).toHaveBeenCalled()
+	})
+
 	it("should draw a mark on the tile the player clicked on", () => {
 		//Arrange
 		const board = new Board()
