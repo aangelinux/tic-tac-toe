@@ -6,7 +6,7 @@
 UI should display a board containing 3 x 3 tiles. [x]
   
 ## Req 2 Interactivity
-Player should be able to mark one **empty** tile at a time by pressing on it.
+Player should be able to mark one **empty** tile at a time by pressing on it. [x]
   
 ## Req 3 AI
 AI should mark a random **empty** tile when it's their turn.

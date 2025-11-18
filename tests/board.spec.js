@@ -14,13 +14,12 @@ describe("Board", () => {
 	it("should call draw method when player clicks on an empty tile", () => {
 		//Arrange
 		const board = new Board()
-		const targetTile = board.tiles[0]
 		const spy = jest.spyOn(board, "mark")
 
 		//Act
 		board.connectedCallback()
 		const click = new Event("click")
-		targetTile.dispatchEvent(click)
+		board.tiles[0].dispatchEvent(click)
 
 		//Assert
 		expect(spy).toHaveBeenCalled()
@@ -52,5 +51,23 @@ describe("Board", () => {
 		const marks = clickedTile.innerHTML.split("</svg>")
 		expect(clickedTile.marked).toBe(true)
 		expect(marks.length).toBe(2) // Fix later
+	})
+})
+
+describe("AI", () => {
+	it("should mark a random empty tile during their turn", () => {
+		//Arrange
+		const board = new Board()
+		const spy = jest.spyOn(board, "markRandom")
+
+		//Act
+		board.connectedCallback()
+		const click = new Event("click")
+		board.tiles[0].dispatchEvent(click)
+
+		//Assert
+		expect(spy).toHaveBeenCalled()
+		const marks = clickedTile.innerHTML.split("</svg>")
+		expect(marks.length).toBe(3) // Fix later
 	})
 })
