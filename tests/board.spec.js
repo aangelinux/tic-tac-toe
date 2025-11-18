@@ -41,15 +41,15 @@ describe("Board", () => {
 	it("should not draw a new mark if tile is already marked", () => {
 		//Arrange
 		const board = new Board()
-		const clickedTile = board.tiles[0]
+		const tile = board.tiles[0]
 
 		//Act
-		board.mark(clickedTile)
-		board.mark(clickedTile)
+		board.mark(tile)
+		board.mark(tile)
 
 		//Assert
-		const marks = clickedTile.innerHTML.split("</svg>")
-		expect(clickedTile.marked).toBe(true)
+		const marks = tile.innerHTML.split("</svg>")
+		expect(tile.marked).toBe(true)
 		expect(marks.length).toBe(2) // Fix later
 	})
 })
@@ -67,5 +67,20 @@ describe("AI", () => {
 
 		//Assert
 		expect(markRandom).toHaveBeenCalled()
+	})
+
+	it("should not mark a taken tile", () => {
+		//Arrange
+		const board = new Board()
+		const tile = board.tiles[0]
+
+		//Act
+		board.markRandom(tile)
+		board.markRandom(tile)
+
+		//Assert
+		const marks = tile.innerHTML.split("</svg>")
+		expect(tile.marked).toBe(true)
+		expect(marks.length).toBe(2) // Fix later
 	})
 })
