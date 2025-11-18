@@ -36,5 +36,21 @@ describe("Board", () => {
 
 		//Assert
 		expect(clickedTile.marked).toBe(true)
+		expect(clickedTile.innerHTML).toContain("svg")
+	})
+
+	it("should not draw a new mark if tile is already marked", () => {
+		//Arrange
+		const board = new Board()
+		const clickedTile = board.tiles[0]
+
+		//Act
+		board.mark(clickedTile)
+		board.mark(clickedTile)
+
+		//Assert
+		const marks = clickedTile.innerHTML.split("</svg>")
+		expect(clickedTile.marked).toBe(true)
+		expect(marks.length).toBe(2) // Fix later
 	})
 })
