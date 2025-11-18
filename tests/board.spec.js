@@ -1,19 +1,13 @@
 /**
- * Unit tests.
+ * Unit tests for the game board.
  */
 
 import { describe, it, expect, jest } from "@jest/globals"
-import { Board } from "../src/board"
-import { fileURLToPath } from 'url'
-import path from 'path'
-import fs from 'fs'
+import { Board } from "../src/view/board.js"
+import "../src/view/board.js"
 
 beforeEach(() => {
-	const __filename = fileURLToPath(import.meta.url)
-	const __dirname = path.dirname(__filename)
-
-  const html = fs.readFileSync(path.resolve(__dirname, "../public/index.html"), "utf8")
-  document.documentElement.innerHTML = html
+  document.documentElement.innerHTML = "<game-board></game-board>"
 })
 
 describe("Board", () => {
@@ -21,9 +15,10 @@ describe("Board", () => {
 		//Arrange
 		const board = new Board()
 		const targetTile = board.tiles[0]
-		const spy = jest.spyOn(board, "drawMark")
+		const spy = jest.spyOn(board, "mark")
 
 		//Act
+		board.connectedCallback()
 		const click = new Event("click")
 		targetTile.dispatchEvent(click)
 
@@ -37,7 +32,7 @@ describe("Board", () => {
 		const clickedTile = board.tiles[0]
 
 		//Act
-		board.drawMark(clickedTile)
+		board.mark(clickedTile)
 
 		//Assert
 		expect(clickedTile.marked).toBe(true)
