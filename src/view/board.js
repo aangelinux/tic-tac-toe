@@ -22,14 +22,14 @@ export class Board extends HTMLElement {
 	}
 
 	mark(tile) {
-		if (!tile.marked) {
+		if (tile.marked) {
+			return
+		} else {
 			const svg = this.#drawSVG(tile)
 			tile.appendChild(svg)
 			const nought = this.#drawNought(tile)
 			svg.appendChild(nought)
-			tile.marked = true
-		} else {
-			return
+			tile.marked = true		
 		}
 	}
 
