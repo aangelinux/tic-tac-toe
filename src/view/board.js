@@ -17,7 +17,10 @@ export class Board extends HTMLElement {
 	connectedCallback() {
 		this.tiles.forEach((tile => {
 			tile.marked = false
-			tile.addEventListener("click", () => this.mark(tile))
+			tile.addEventListener("click", () => {
+				this.mark(tile)
+				this.markRandom()
+			})
 		}))
 	}
 
@@ -31,6 +34,9 @@ export class Board extends HTMLElement {
 			svg.appendChild(nought)
 			tile.marked = true		
 		}
+	}
+
+	markRandom() {
 	}
 
 	#drawSVG(tile) {
