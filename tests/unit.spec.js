@@ -20,12 +20,12 @@ describe("Board", () => {
 	it("should call draw method when player clicks on an empty tile", () => {
 		//Arrange
 		const board = new Board()
+		const targetTile = board.tiles[0]
+		const spy = jest.spyOn(board, "drawMark")
 
 		//Act
 		const click = new Event("click")
-		const targetTile = board.tiles[0]
 		targetTile.dispatchEvent(click)
-		const spy = jest.spyOn(board, "drawMark")
 
 		//Assert
 		expect(spy).toHaveBeenCalled()
@@ -34,9 +34,9 @@ describe("Board", () => {
 	it("should draw a mark on the tile the player clicked on", () => {
 		//Arrange
 		const board = new Board()
+		const clickedTile = board.tiles[0]
 
 		//Act
-		const clickedTile = board.tiles[0]
 		board.drawMark(clickedTile)
 
 		//Assert

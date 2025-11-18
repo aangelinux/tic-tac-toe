@@ -8,6 +8,7 @@ export class Board {
 
 		this.tiles.forEach((tile => {
 			tile.marked = false
+			tile.addEventListener("click", () => this.drawMark(tile))
 		}))
 	}
 
