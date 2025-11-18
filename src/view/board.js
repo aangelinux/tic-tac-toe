@@ -19,7 +19,8 @@ export class Board extends HTMLElement {
 			tile.marked = false
 			tile.addEventListener("click", () => {
 				this.mark(tile)
-				this.markRandom()
+				const aiTile = this.randomize()
+				this.markRandom(aiTile)
 			})
 		}))
 	}
@@ -35,9 +36,7 @@ export class Board extends HTMLElement {
 		}
 	}
 
-	markRandom() {
-		const tile = this.#randomize()
-
+	markRandom(tile) {
 		if (tile.marked) {
 			return
 		} else {
@@ -49,7 +48,7 @@ export class Board extends HTMLElement {
 		}
 	}
 
-	#randomize() {
+	randomize() {
 		const index = Math.floor(Math.random() * 8)
 
 		let tile = this.tiles[index]
