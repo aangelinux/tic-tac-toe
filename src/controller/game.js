@@ -12,10 +12,10 @@ export class Game extends EventTarget {
 	}
 
 	start() {
-		this.addEventListener("humanPlayedTurn", () => this.giveTurnToAI())
+		document.addEventListener("human-played", () => this.giveTurnToAI())
 	}
 
 	giveTurnToAI() {
-		this.ai.play(this.board)
+		const tile = this.ai.play(this.board)
 	}
 }

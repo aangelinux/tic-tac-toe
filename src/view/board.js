@@ -60,7 +60,12 @@ export class Board extends HTMLElement {
 	}
 
 	fireEvent() {
+		const event = new CustomEvent("human-played", {
+			bubbles: true,
+			composed: true
+		})
 
+		document.dispatchEvent(event)
 	}
 
 	#drawSVG(tile) {

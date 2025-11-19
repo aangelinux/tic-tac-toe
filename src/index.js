@@ -10,7 +10,7 @@ import { Random } from "./model/random"
 function main() {
 	const random = new Random()
 
-	new Game(new Board(), new AI(random))
+	new Game(new Board(), new AI(random)).start()
 }
 
 main()
