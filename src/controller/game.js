@@ -17,5 +17,6 @@ export class Game extends EventTarget {
 
 	giveTurnToAI() {
 		const tile = this.ai.play(this.board)
+		this.board.markRandom(tile)
 	}
 }
