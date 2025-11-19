@@ -20,18 +20,18 @@ describe("AI", () => {
 		expect(tile).toBeInstanceOf(HTMLElement) // change to Tile class later
 	})
 
-	// it("should choose a new tile if tile is already marked", () => {
-	// 	//Arrange
-	// 	const board = new Board()
-	// 	const ai = new AI(new RandomStub)
-	// 	const tile = board.tiles[8]
-	// 	const randomize = jest.spyOn(ai, "randomize")
+	it("should choose a new tile if tile is already marked", () => {
+		//Arrange
+		const board = new Board()
+		const ai = new AI(new RandomStub)
+		const randomize = jest.spyOn(ai, "randomize")
+		const isMarked = jest.mock(board.isMarked(board.tiles[8]))
 
-	// 	//Act
-	// 	board.isMarked(tile).mockReturnValue(true)
-	// 	ai.play(board)
+		//Act
+		isMarked.mockReturnValue(true)
+		ai.play(board)
 
-	// 	//Assert
-	// 	expect(randomize).toHaveBeenCalledTimes(2)
-	// })
+		//Assert
+		expect(randomize).toHaveBeenCalledTimes(2)
+	})
 })
