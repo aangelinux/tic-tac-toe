@@ -4,17 +4,11 @@
 
 import { describe, it, expect, jest } from "@jest/globals"
 import { Board } from "../src/view/board.js"
-import { RandomStub } from "./__mocks__/random.js"
-import "../src/view/board.js"
-
-beforeEach(() => {
-  document.documentElement.innerHTML = "<game-board></game-board>"
-})
 
 describe("Board", () => {
 	it("should call draw method when player clicks on an empty tile", () => {
 		//Arrange
-		const board = new Board(new RandomStub)
+		const board = new Board()
 		const spy = jest.spyOn(board, "mark")
 
 		//Act
@@ -28,7 +22,7 @@ describe("Board", () => {
 
 	it("should draw a mark on the tile the player clicked on", () => {
 		//Arrange
-		const board = new Board(new RandomStub)
+		const board = new Board()
 		const clickedTile = board.tiles[0]
 
 		//Act
@@ -41,7 +35,7 @@ describe("Board", () => {
 
 	it("should not draw a new mark if tile is already marked", () => {
 		//Arrange
-		const board = new Board(new RandomStub)
+		const board = new Board()
 		const tile = board.tiles[0]
 
 		//Act
@@ -52,5 +46,19 @@ describe("Board", () => {
 		const marks = tile.innerHTML.split("</svg>")
 		expect(tile.marked).toBe(true)
 		expect(marks.length).toBe(2) // Fix later
+	})
+
+	it("should fire event when player has clicked on a tile", () => {
+		//Arrange
+		const board = new Board()
+		const fireEvent = jest.spyOn(board, "fireEvent")
+
+		//Act
+		board.connectedCallback()
+		const click = new Event("click")
+		board.tiles[0].dispatchEvent(click)
+		
+		//Assert
+		expect(fireEvent).toHaveBeenCalledTimes(1)
 	})
 })

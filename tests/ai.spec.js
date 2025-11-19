@@ -17,7 +17,7 @@ describe("AI", () => {
 		const tile = ai.play(board)
 
 		//Assert
-		expect(tile).toBeInstanceOf(HTMLElement)
+		expect(tile).toBeInstanceOf(HTMLElement) // change to Tile class later
 	})
 
 	it("should not mark a taken tile", () => {
