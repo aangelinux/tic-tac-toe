@@ -3,6 +3,7 @@
  */
 
 import { describe, it, expect, jest } from "@jest/globals"
+import { Game } from "../src/controller/game"
 
 describe("Game", () => {
 	it("should give turn to AI when human has played", () => {
