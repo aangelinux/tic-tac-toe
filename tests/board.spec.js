@@ -9,7 +9,7 @@ describe("Board", () => {
 	it("should call draw method when player clicks on an empty tile", () => {
 		//Arrange
 		const board = new Board()
-		const spy = jest.spyOn(board, "mark")
+		const markNought = jest.spyOn(board, "markNought")
 
 		//Act
 		board.connectedCallback()
@@ -17,7 +17,7 @@ describe("Board", () => {
 		board.tiles[0].dispatchEvent(click)
 
 		//Assert
-		expect(spy).toHaveBeenCalled()
+		expect(markNought).toHaveBeenCalled()
 	})
 
 	it("should draw a mark on the tile the player clicked on", () => {
@@ -26,7 +26,7 @@ describe("Board", () => {
 		const clickedTile = board.tiles[0]
 
 		//Act
-		board.mark(clickedTile)
+		board.markNought(clickedTile)
 
 		//Assert
 		expect(clickedTile.marked).toBe(true)
@@ -39,8 +39,8 @@ describe("Board", () => {
 		const tile = board.tiles[0]
 
 		//Act
-		board.mark(tile)
-		board.mark(tile)
+		board.markNought(tile)
+		board.markNought(tile)
 
 		//Assert
 		const marks = tile.innerHTML.split("</svg>")

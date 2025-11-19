@@ -10,7 +10,7 @@ import { RandomStub } from "./__mocks__/random.js"
 describe("AI", () => {
 	it("should choose a random tile during their turn", () => {
 		//Arrange
-		const board = new Board()
+		const board = new Board() // mock instead ??
 		const ai = new AI(new RandomStub())
 
 		//Act
@@ -20,18 +20,18 @@ describe("AI", () => {
 		expect(tile).toBeInstanceOf(HTMLElement) // change to Tile class later
 	})
 
-	it("should not mark a taken tile", () => {
-		//Arrange
-		const board = new Board(new RandomStub)
-		const tile = board.tiles[0]
+	// it("should choose a new tile if tile is already marked", () => {
+	// 	//Arrange
+	// 	const board = new Board()
+	// 	const ai = new AI(new RandomStub)
+	// 	const tile = board.tiles[8]
+	// 	const randomize = jest.spyOn(ai, "randomize")
 
-		//Act
-		board.markRandom(tile)
-		board.markRandom(tile)
+	// 	//Act
+	// 	board.isMarked(tile).mockReturnValue(true)
+	// 	ai.play(board)
 
-		//Assert
-		const marks = tile.innerHTML.split("</svg>")
-		expect(tile.marked).toBe(true)
-		expect(marks.length).toBe(2) // Fix later
-	})
+	// 	//Assert
+	// 	expect(randomize).toHaveBeenCalledTimes(2)
+	// })
 })

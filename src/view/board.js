@@ -18,12 +18,12 @@ export class Board extends HTMLElement {
 		this.tiles.forEach((tile => {
 			tile.marked = false
 			tile.addEventListener("click", () => {
-				this.mark(tile)
+				this.markNought(tile)
 				this.fireEvent()
 		})}))
 	}
 
-	mark(tile) {
+	markNought(tile) {
 		if (tile.marked) {
 			return
 		} else {
@@ -34,7 +34,7 @@ export class Board extends HTMLElement {
 		}
 	}
 
-	markRandom(tile) {
+	markCross(tile) {
 		if (tile.marked) {
 			return
 		} else {
@@ -44,19 +44,6 @@ export class Board extends HTMLElement {
 			svg.appendChild(this.#drawBackwardDiagonal(tile))
 			tile.marked = true
 		}
-	}
-
-	randomize() {
-		this.random.value = 8
-		const index = this.random.value
-
-		let tile = this.tiles[index]
-		while (tile.marked === true) {
-			const index = Math.floor(Math.random() * 8)
-			tile = this.tiles[index]
-		}
-
-		return tile
 	}
 
 	fireEvent() {
