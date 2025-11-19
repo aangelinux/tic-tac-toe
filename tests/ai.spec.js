@@ -4,16 +4,17 @@
 
 import { describe, it, expect, jest } from "@jest/globals"
 import { Board } from "../src/view/board.js"
+import { AI } from "../src/model/ai.js"
 import { RandomStub } from "./__mocks__/random.js"
 
 describe("AI", () => {
 	it("should mark a random tile during their turn", () => {
 		//Arrange
-		const board = new Board()
+		const board = new Board(new RandomStub())
 		const ai = new AI(new RandomStub())
 
 		//Act
-		ai.play()
+		ai.play(board)
 
 		//Assert
 		expect(board.tiles[8].marked).toBeTruthy()

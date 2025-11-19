@@ -1,5 +1,5 @@
 /**
- * Game controller to manage turns between human and AI.
+ * Manage turns between human and AI.
  */
 
 export class Game extends EventTarget {
