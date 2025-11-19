@@ -19,6 +19,6 @@ export class AI {
 			tile = this.tiles[index]
 		}
 
-		tile.marked = true
+		return tile
 	}
 }

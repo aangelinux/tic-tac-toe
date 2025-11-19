@@ -8,16 +8,16 @@ import { AI } from "../src/model/ai.js"
 import { RandomStub } from "./__mocks__/random.js"
 
 describe("AI", () => {
-	it("should mark a random tile during their turn", () => {
+	it("should choose a random tile during their turn", () => {
 		//Arrange
 		const board = new Board()
 		const ai = new AI(new RandomStub())
 
 		//Act
-		ai.play(board)
+		const tile = ai.play(board)
 
 		//Assert
-		expect(board.tiles[8].marked).toBeTruthy()
+		expect(tile).toBeInstanceOf(HTMLElement)
 	})
 
 	it("should not mark a taken tile", () => {
