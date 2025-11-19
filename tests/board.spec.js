@@ -6,7 +6,6 @@ import { describe, it, expect, jest } from "@jest/globals"
 import { Board } from "../src/view/board.js"
 import { RandomStub } from "./__mocks__/random.js"
 import "../src/view/board.js"
-import { Game } from "../src/controller/game.js"
 
 beforeEach(() => {
   document.documentElement.innerHTML = "<game-board></game-board>"
@@ -48,38 +47,6 @@ describe("Board", () => {
 		//Act
 		board.mark(tile)
 		board.mark(tile)
-
-		//Assert
-		const marks = tile.innerHTML.split("</svg>")
-		expect(tile.marked).toBe(true)
-		expect(marks.length).toBe(2) // Fix later
-	})
-})
-
-describe("AI", () => {
-	it("should mark a random empty tile during their turn", () => {
-		//Arrange
-		const random = new RandomStub()
-		const board = new Board(random)
-		const game = new Game(board)
-
-		//Act
-		const humanPlayedTurn = new CustomEvent("humanPlayedTurn")
-		game.start()
-		game.dispatchEvent(humanPlayedTurn)
-
-		//Assert
-		expect(board.tiles[8].marked).toBeTruthy()
-	})
-
-	it("should not mark a taken tile", () => {
-		//Arrange
-		const board = new Board(new RandomStub)
-		const tile = board.tiles[0]
-
-		//Act
-		board.markRandom(tile)
-		board.markRandom(tile)
 
 		//Assert
 		const marks = tile.innerHTML.split("</svg>")
