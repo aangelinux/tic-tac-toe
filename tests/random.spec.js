@@ -11,9 +11,9 @@ describe("Random", () => {
 		const random = new Random()
 
 		//Act
-		random.value = 9
+		random.value = 8
 
 		//Assert
-		expect(random.value).toBeLessThanOrEqual(9)
+		expect(random.value).toBeLessThanOrEqual(8)
 	})
 })

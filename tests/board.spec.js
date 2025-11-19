@@ -4,6 +4,7 @@
 
 import { describe, it, expect, jest } from "@jest/globals"
 import { Board } from "../src/view/board.js"
+import { RandomStub } from "./__mocks__/random.js"
 import "../src/view/board.js"
 
 beforeEach(() => {
@@ -13,7 +14,7 @@ beforeEach(() => {
 describe("Board", () => {
 	it("should call draw method when player clicks on an empty tile", () => {
 		//Arrange
-		const board = new Board()
+		const board = new Board(new RandomStub)
 		const spy = jest.spyOn(board, "mark")
 
 		//Act
@@ -27,7 +28,7 @@ describe("Board", () => {
 
 	it("should draw a mark on the tile the player clicked on", () => {
 		//Arrange
-		const board = new Board()
+		const board = new Board(new RandomStub)
 		const clickedTile = board.tiles[0]
 
 		//Act
@@ -40,7 +41,7 @@ describe("Board", () => {
 
 	it("should not draw a new mark if tile is already marked", () => {
 		//Arrange
-		const board = new Board()
+		const board = new Board(new RandomStub)
 		const tile = board.tiles[0]
 
 		//Act
@@ -57,8 +58,8 @@ describe("Board", () => {
 describe("AI", () => {
 	it("should mark a random empty tile during their turn", () => {
 		//Arrange
-		const board = new Board()
-		const markRandom = jest.spyOn(board, "markRandom")
+		const random = new RandomStub()
+		const board = new Board(random)
 
 		//Act
 		board.connectedCallback()
@@ -66,12 +67,12 @@ describe("AI", () => {
 		board.tiles[0].dispatchEvent(click)
 
 		//Assert
-		expect(markRandom).toHaveBeenCalled()
+		expect(board.tiles[8].marked).toBeTruthy()
 	})
 
 	it("should not mark a taken tile", () => {
 		//Arrange
-		const board = new Board()
+		const board = new Board(new RandomStub)
 		const tile = board.tiles[0]
 
 		//Act

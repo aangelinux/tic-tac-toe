@@ -5,12 +5,13 @@
 import { template } from "./board-template.js"
 
 export class Board extends HTMLElement {
-	constructor() {
+	constructor(random) {
 		super()
 		
 		this.attachShadow({ mode: 'open' })
 			.appendChild(template.content.cloneNode(true))
 
+		this.random = random
 		this.tiles = this.shadowRoot.querySelectorAll(".tile")
 	}
 
@@ -49,7 +50,8 @@ export class Board extends HTMLElement {
 	}
 
 	randomize() {
-		const index = Math.floor(Math.random() * 8)
+		this.random.value = 8
+		const index = this.random.value
 
 		let tile = this.tiles[index]
 		while (tile.marked === true) {
