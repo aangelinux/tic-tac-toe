@@ -12,6 +12,13 @@ export class AI {
 		this.random.value = 8
 		const index = this.random.value
 
-		board.tiles[index].marked = true
+		let tile = board.tiles[index]
+		while (tile.marked === true) {
+			this.random.value = 8
+			const index = this.random.value
+			tile = this.tiles[index]
+		}
+
+		tile.marked = true
 	}
 }

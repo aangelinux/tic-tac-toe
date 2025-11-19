@@ -5,13 +5,12 @@
 import { template } from "./board-template.js"
 
 export class Board extends HTMLElement {
-	constructor(random) {
+	constructor() {
 		super()
 		
 		this.attachShadow({ mode: 'open' })
 			.appendChild(template.content.cloneNode(true))
 
-		this.random = random
 		this.tiles = this.shadowRoot.querySelectorAll(".tile")
 	}
 

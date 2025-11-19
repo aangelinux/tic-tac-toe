@@ -4,10 +4,11 @@
 
 export class Game extends EventTarget {
 
-	constructor(board) {
+	constructor(board, ai) {
 		super()
 
 		this.board = board
+		this.ai = ai
 	}
 
 	start() {
@@ -15,7 +16,6 @@ export class Game extends EventTarget {
 	}
 
 	giveTurnToAI() {
-		const aiTile = this.board.randomize()
-		this.board.markRandom(aiTile)
+		this.ai.play(this.board)
 	}
 }

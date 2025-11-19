@@ -10,7 +10,7 @@ import { RandomStub } from "./__mocks__/random.js"
 describe("AI", () => {
 	it("should mark a random tile during their turn", () => {
 		//Arrange
-		const board = new Board(new RandomStub())
+		const board = new Board()
 		const ai = new AI(new RandomStub())
 
 		//Act
