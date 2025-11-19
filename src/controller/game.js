@@ -4,16 +4,18 @@
 
 export class Game extends EventTarget {
 
-	constructor() {
+	constructor(board) {
 		super()
 
-		this.init()
+		this.board = board
 	}
 
-	init() {
+	start() {
 		this.addEventListener("humanPlayedTurn", () => this.giveTurnToAI())
 	}
 
 	giveTurnToAI() {
+		const aiTile = this.board.randomize()
+		this.board.markRandom(aiTile)
 	}
 }

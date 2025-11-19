@@ -18,11 +18,7 @@ export class Board extends HTMLElement {
 	connectedCallback() {
 		this.tiles.forEach((tile => {
 			tile.marked = false
-			tile.addEventListener("click", () => {
-				this.mark(tile)
-				const aiTile = this.randomize()
-				this.markRandom(aiTile)
-			})
+			tile.addEventListener("click", () => this.mark(tile))
 		}))
 	}
 

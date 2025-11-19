@@ -6,6 +6,7 @@ import { describe, it, expect, jest } from "@jest/globals"
 import { Board } from "../src/view/board.js"
 import { RandomStub } from "./__mocks__/random.js"
 import "../src/view/board.js"
+import { Game } from "../src/controller/game.js"
 
 beforeEach(() => {
   document.documentElement.innerHTML = "<game-board></game-board>"
@@ -60,11 +61,12 @@ describe("AI", () => {
 		//Arrange
 		const random = new RandomStub()
 		const board = new Board(random)
+		const game = new Game(board)
 
 		//Act
-		board.connectedCallback()
-		const click = new Event("click")
-		board.tiles[0].dispatchEvent(click)
+		const humanPlayedTurn = new CustomEvent("humanPlayedTurn")
+		game.start()
+		game.dispatchEvent(humanPlayedTurn)
 
 		//Assert
 		expect(board.tiles[8].marked).toBeTruthy()
