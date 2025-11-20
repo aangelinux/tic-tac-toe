@@ -2,10 +2,10 @@
  * Entrypoint for the application.
  */
 
-import { Game } from "./controller/game"
-import { Board } from "./view/board"
-import { AI } from "./model/ai"
-import { Random } from "./model/random"
+import { Game } from "./controller/game.js"
+import { Board } from "./view/board/board.js"
+import { AI } from "./model/ai.js"
+import { Random } from "./model/random.js"
 
 function main() {
 	const random = new Random()

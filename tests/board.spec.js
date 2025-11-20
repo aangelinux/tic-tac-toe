@@ -3,7 +3,7 @@
  */
 
 import { describe, it, expect, jest } from "@jest/globals"
-import { Board } from "../src/view/board.js"
+import { Board } from "../src/view/board/board.js"
 
 describe("Board", () => {
 	it("should call draw method when player clicks on an empty tile", () => {
