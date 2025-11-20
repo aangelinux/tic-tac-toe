@@ -37,4 +37,19 @@ describe("Tile", () => {
 		expect(tile.svg).toBeInstanceOf(SVGSVGElement)
 		expect(tile.svg.querySelector("circle")).toBeInstanceOf(SVGElement)
 	})
+
+	it("should do nothing when player clicks on marked tile", () => {
+		//Arrange
+		const tile = new Tile()
+		document.body.appendChild(tile)
+
+		jest.spyOn(tile, "isMarked").mockReturnValueOnce(true)
+		const mark = jest.spyOn(tile, "mark")
+
+		//Act
+		tile.click()
+
+		//Assert
+		expect(mark).not.toHaveBeenCalled()
+	})
 })

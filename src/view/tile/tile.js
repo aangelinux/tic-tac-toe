@@ -19,9 +19,8 @@ export class Tile extends HTMLElement {
 
 	connectedCallback() {
 		this.addEventListener("click", () => {
-			if (!this.isMarked()) {
-				this.mark()
-			}
+			this.isMarked()
+			this.mark()
 		})
 	}
 
