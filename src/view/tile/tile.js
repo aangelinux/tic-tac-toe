@@ -21,6 +21,7 @@ export class Tile extends HTMLElement {
 		this.addEventListener("click", () => {
 			if (!this.isMarked()) {
 				this.mark()
+				this.fireEvent()
 			}
 		})
 	}
@@ -32,6 +33,8 @@ export class Tile extends HTMLElement {
 	mark() {
 		const circle = this.drawCircle()
 		this.svg.appendChild(circle)
+
+		this.setAttribute("marked", true)
 	}
 
 	drawCircle() {
@@ -42,6 +45,9 @@ export class Tile extends HTMLElement {
 		circle.classList.add("circle")
 
 		return circle
+	}
+
+	fireEvent() {
 	}
 }
 

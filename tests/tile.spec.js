@@ -59,7 +59,7 @@ describe("Tile", () => {
 		document.body.appendChild(tile)
 		
 		const fireEvent = jest.spyOn(tile, "fireEvent")
-		jest.spyOn(tile, "isMarked").mockReturnValueOnce(true)
+		jest.spyOn(tile, "isMarked").mockReturnValueOnce(false)
 
 		//Act
 		tile.click()
