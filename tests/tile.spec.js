@@ -52,4 +52,19 @@ describe("Tile", () => {
 		//Assert
 		expect(mark).not.toHaveBeenCalled()
 	})
+
+	it("should fire event when a tile has been marked", () => {
+		//Arrange
+		const tile = new Tile()
+		document.body.appendChild(tile)
+		
+		const fireEvent = jest.spyOn(tile, "fireEvent")
+		jest.spyOn(tile, "isMarked").mockReturnValueOnce(true)
+
+		//Act
+		tile.click()
+		
+		//Assert
+		expect(fireEvent).toHaveBeenCalledTimes(1)
+	})
 })
