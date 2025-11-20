@@ -9,11 +9,12 @@ describe("Tile", () => {
 	it("should check if it is empty or marked when player clicks on it", () => {
 		//Arrange
 		const tile = new Tile()
+		document.body.appendChild(tile)
+		
 		const isMarked = jest.spyOn(tile, "isMarked")
 
 		//Act
-		const click = new Event("click")
-		tile.dispatchEvent(click)
+		tile.click()
 
 		//Assert
 		expect(isMarked).toHaveBeenCalledTimes(1)

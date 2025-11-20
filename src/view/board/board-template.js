@@ -25,12 +25,6 @@ template.innerHTML = `
 			background-color: lightblue;
 		}
 
-		.tile {
-			border: 3px solid black;
-			border-radius: 5px;
-			cursor: pointer;
-		}
-
 		.svg {
 			position: absolute;
 		}
