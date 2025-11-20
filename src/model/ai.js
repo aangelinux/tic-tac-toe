@@ -10,21 +10,21 @@ export class AI {
 
 	play(board) {
 		this.random.value = 8
-		const index = this.random.value
-
+		let index = this.random.value
 		let tile = board.tiles[index]
+		
 		while (board.isMarked(tile)) {
-			tile = this.randomize(board)
+			index = this.randomize()
+			tile = board.tiles[index]
 		}
 
 		return tile
 	}
 
-	randomize(board) {
+	randomize() {
 		this.random.value = 8
 		const index = this.random.value
-		const tile = board.tiles[index]
 		
-		return tile
+		return index
 	}
 }

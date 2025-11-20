@@ -1,5 +1,8 @@
 # Deps
 node_modules
 
+# Coverage
+coverage
+
 # Backlog
 log.md

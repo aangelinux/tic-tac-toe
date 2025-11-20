@@ -4,14 +4,14 @@
 
 import { describe, it, expect, jest } from "@jest/globals"
 import { Game } from "../src/controller/game"
-import { Board } from "../src/view/board"
-import { AI } from "../src/model/ai"
+import { AIMock } from "./__mocks__/ai.js"
+import { BoardMock } from "./__mocks__/board.js"
 import { RandomStub } from "./__mocks__/random.js"
 
 describe("Game", () => {
 	it("should give turn to AI when human has played", () => {
 		//Arrange
-		const game = new Game(new Board(), new AI(new RandomStub()))
+		const game = new Game(new BoardMock(), new AIMock(new RandomStub()))
 		const giveTurnToAI = jest.spyOn(game, "giveTurnToAI") // TODO fix coupling to implm
 
 		//Act
@@ -28,14 +28,14 @@ describe("Game", () => {
 
 	it("should tell Board to mark AI's chosen tile", () => {
 		//Arrange
-		const board = new Board()
-		const game = new Game(board, new AI(new RandomStub()))
+		const boardMock = new BoardMock()
+		const game = new Game(boardMock, new AIMock(new RandomStub()))
 
 		//Act
 		game.start()
 		game.giveTurnToAI()
 
 		//Assert
-		expect(board.tiles[8].querySelector("svg")).toBeInstanceOf(SVGSVGElement)
+		expect(boardMock.tiles[8].querySelector("svg")).toBeInstanceOf(SVGSVGElement)
 	})
 })
