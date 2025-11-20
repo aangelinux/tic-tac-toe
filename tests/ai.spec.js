@@ -29,7 +29,8 @@ describe("AI", () => {
 		const randomize = jest.spyOn(ai, "randomize")
 
 		//Act
-		jest.spyOn(boardMock, "isMarked").mockReturnValueOnce(true)
+		boardMock.draw(9)
+		jest.spyOn(boardMock.tiles[8], "isMarked").mockReturnValueOnce(true)
 		ai.play(boardMock)
 
 		//Assert

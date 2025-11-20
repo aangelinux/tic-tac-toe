@@ -12,13 +12,4 @@ export class BoardMock {
 			this.tiles.push(tile)
 		}
 	}
-
-	markCross(tile) {
-		const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg")
-		tile.appendChild(svg)
-	}
-
-	isMarked() {
-		return false
-	}
 }
