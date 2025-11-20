@@ -3,6 +3,7 @@
  */
 
 import { template } from "./board-template.js"
+import { Tile } from "../tile/tile.js"
 
 export class Board extends HTMLElement {
 	constructor() {
@@ -15,6 +16,13 @@ export class Board extends HTMLElement {
 	}
 
 	connectedCallback() {
+	}
+
+	draw(size) {
+		for (let i = 0; i < size; i++) {
+			const tile = new Tile()
+			this.tiles.push(tile)
+		}
 	}
 
 	#drawBackwardDiagonal(tile) {
