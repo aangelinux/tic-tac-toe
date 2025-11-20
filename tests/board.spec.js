@@ -2,7 +2,7 @@
  * Unit tests for the game board.
  */
 
-import { describe, it, expect, jest } from "@jest/globals"
+import { describe, it, expect } from "@jest/globals"
 import { Board } from "../src/view/board/board.js"
 import { Tile } from "../src/view/tile/tile.js"
 
