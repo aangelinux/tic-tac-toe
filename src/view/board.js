@@ -55,6 +55,10 @@ export class Board extends HTMLElement {
 		document.dispatchEvent(event)
 	}
 
+	isMarked(tile) {
+		return tile.marked === true
+	}
+
 	#drawSVG(tile) {
 		const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg")
 		svg.setAttribute("height", tile.offsetHeight)

@@ -22,13 +22,13 @@ describe("AI", () => {
 
 	it("should choose a new tile if tile is already marked", () => {
 		//Arrange
-		const board = new Board()
+		const board = new Board() // mock?
 		const ai = new AI(new RandomStub)
 		const randomize = jest.spyOn(ai, "randomize")
-		const isMarked = jest.mock(board.isMarked(board.tiles[8]))
+		jest.spyOn(Board.prototype, "isMarked").mockReturnValueOnce(true)
+		jest.spyOn(Board.prototype, "isMarked").mockReturnValueOnce(true)
 
 		//Act
-		isMarked.mockReturnValue(true)
 		ai.play(board)
 
 		//Assert
