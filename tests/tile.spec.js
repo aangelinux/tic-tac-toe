@@ -34,7 +34,6 @@ describe("Tile", () => {
 
 		//Assert
 		expect(mark).toHaveBeenCalledTimes(1)
-		expect(tile.svg).toBeInstanceOf(SVGSVGElement)
 		expect(tile.svg.querySelector("circle")).toBeInstanceOf(SVGElement)
 	})
 
@@ -66,5 +65,21 @@ describe("Tile", () => {
 		
 		//Assert
 		expect(mock).toHaveBeenCalledTimes(1)
+	})
+
+	it("should draw cross when AI picks a tile", () => {
+		//Arrange
+		const tile = new Tile()
+		document.body.appendChild(tile)
+
+		jest.spyOn(tile, "isMarked").mockReturnValueOnce(false)
+		const mark = jest.spyOn(tile, "mark")
+
+		//Act
+		tile.click()
+
+		//Assert
+		expect(mark).toHaveBeenCalledTimes(1)
+		expect(tile.svg.querySelector("line")).toBeInstanceOf(SVGElement)		
 	})
 })

@@ -6,7 +6,7 @@ import { describe, it, expect, jest } from "@jest/globals"
 import { AI } from "../src/model/ai.js"
 import { RandomStub } from "./__mocks__/random.js"
 import { BoardMock } from "./__mocks__/board.js"
-import { Tile } from "../src/view/tile/tile.js"
+import { Tile } from "../src/view/tile/tile.js" // mock later
 
 describe("AI", () => {
 	it("should choose a random tile during their turn", () => {
