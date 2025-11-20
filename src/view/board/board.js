@@ -11,39 +11,11 @@ export class Board extends HTMLElement {
 		this.attachShadow({ mode: 'open' })
 			.appendChild(template.content.cloneNode(true))
 
-		this.tiles = this.shadowRoot.querySelectorAll(".tile")
+		this.tiles = []
 	}
 
 	connectedCallback() {
-		this.tiles.forEach((tile => {
-			tile.marked = false
-			tile.addEventListener("click", () => {
-				this.markNought(tile)
-				this.fireEvent()
-		})}))
-	}
-
-	markNought(tile) {
-		if (tile.marked) {
-			return
-		} else {
-			const svg = this.#drawSVG(tile)
-			tile.appendChild(svg)
-			svg.appendChild(this.#drawNought(tile))
-			tile.marked = true		
-		}
-	}
-
-	markCross(tile) {
-		if (tile.marked) {
-			return
-		} else {
-			const svg = this.#drawSVG(tile)
-			tile.appendChild(svg)
-			svg.appendChild(this.#drawForwardDiagonal(tile))
-			svg.appendChild(this.#drawBackwardDiagonal(tile))
-			tile.marked = true
-		}
+		this.addEventListener("click", () => this.fireEvent())
 	}
 
 	fireEvent() {
@@ -53,29 +25,6 @@ export class Board extends HTMLElement {
 		})
 
 		document.dispatchEvent(event)
-	}
-
-	isMarked(tile) {
-		return tile.marked === true
-	}
-
-	#drawSVG(tile) {
-		const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg")
-		svg.setAttribute("height", tile.offsetHeight)
-		svg.setAttribute("width", tile.offsetWidth)
-		svg.classList.add("svg")
-
-		return svg
-	}
-
-	#drawNought(tile) {
-		const nought = document.createElementNS("http://www.w3.org/2000/svg", "circle")
-		nought.setAttribute("r", (tile.offsetHeight / 4)) // Remove magic number
-		nought.setAttribute("cx", (tile.offsetWidth / 2))
-		nought.setAttribute("cy", (tile.offsetHeight / 2))
-		nought.classList.add("nought")
-
-		return nought
 	}
 
 	#drawBackwardDiagonal(tile) {
