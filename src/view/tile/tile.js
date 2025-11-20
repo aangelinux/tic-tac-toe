@@ -5,6 +5,8 @@
 import { template } from "./tile-template"
 
 export class Tile extends HTMLElement {
+	static observedAttributes = ["marked"]
+
 	constructor() {
 		super()
 
@@ -21,13 +23,12 @@ export class Tile extends HTMLElement {
 		this.addEventListener("click", () => {
 			if (!this.isMarked()) {
 				this.mark()
-				this.fireEvent()
 			}
 		})
 	}
 
 	isMarked() {
-		return this.getAttribute("marked") === true
+		return this.getAttribute("marked") === "true"
 	}
 
 	mark() {
@@ -47,7 +48,15 @@ export class Tile extends HTMLElement {
 		return circle
 	}
 
-	fireEvent() {
+	attributeChangedCallback(name, oldValue, newValue) {
+		if (name === "marked" && newValue != oldValue && newValue === "true"){
+			const event = new CustomEvent("human-played", {
+				bubbles: true,
+				composed: true
+			})
+
+			document.dispatchEvent(event)
+		}
 	}
 }
 

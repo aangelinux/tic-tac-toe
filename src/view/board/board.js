@@ -15,16 +15,6 @@ export class Board extends HTMLElement {
 	}
 
 	connectedCallback() {
-		this.addEventListener("click", () => this.fireEvent())
-	}
-
-	fireEvent() {
-		const event = new CustomEvent("human-played", {
-			bubbles: true,
-			composed: true
-		})
-
-		document.dispatchEvent(event)
 	}
 
 	#drawBackwardDiagonal(tile) {

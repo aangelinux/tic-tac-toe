@@ -55,16 +55,16 @@ describe("Tile", () => {
 
 	it("should fire event when a tile has been marked", () => {
 		//Arrange
-		const tile = new Tile()
+		const mock = jest.fn()
+		document.addEventListener("human-played", mock)
+
+		const tile = document.createElement("board-tile")
 		document.body.appendChild(tile)
-		
-		const fireEvent = jest.spyOn(tile, "fireEvent")
-		jest.spyOn(tile, "isMarked").mockReturnValueOnce(false)
 
 		//Act
-		tile.click()
+		tile.mark()
 		
 		//Assert
-		expect(fireEvent).toHaveBeenCalledTimes(1)
+		expect(mock).toHaveBeenCalledTimes(1)
 	})
 })
