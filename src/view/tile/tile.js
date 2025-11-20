@@ -5,7 +5,6 @@
 import { template } from "./tile-template"
 
 export class Tile extends HTMLElement {
-	static observedAttributes = ["marked"]
 
 	constructor() {
 		super()
@@ -22,7 +21,8 @@ export class Tile extends HTMLElement {
 	connectedCallback() {
 		this.addEventListener("click", () => {
 			if (!this.isMarked()) {
-				this.mark()
+				this.markCircle()
+				this.emitEvent()
 			}
 		})
 	}
@@ -31,9 +31,18 @@ export class Tile extends HTMLElement {
 		return this.getAttribute("marked") === "true"
 	}
 
-	mark() {
+	markCircle() {
 		const circle = this.drawCircle()
 		this.svg.appendChild(circle)
+
+		this.setAttribute("marked", true)
+	}
+
+	markCross() {
+		const forwardDiagonal = this.drawForwardDiagonal()
+		this.svg.appendChild(forwardDiagonal)
+		const backwardDiagonal = this.drawBackwardDiagonal()
+		this.svg.appendChild(backwardDiagonal)
 
 		this.setAttribute("marked", true)
 	}
@@ -48,15 +57,35 @@ export class Tile extends HTMLElement {
 		return circle
 	}
 
-	attributeChangedCallback(name, oldValue, newValue) {
-		if (name === "marked" && newValue != oldValue && newValue === "true"){
-			const event = new CustomEvent("human-played", {
-				bubbles: true,
-				composed: true
-			})
+	drawForwardDiagonal() {
+		const cross = document.createElementNS("http://www.w3.org/2000/svg", "line")
+		cross.setAttribute("x1", (this.width / 4) * 3)
+		cross.setAttribute("y1", (this.width / 4))
+		cross.setAttribute("x2", (this.width / 4))
+		cross.setAttribute("y2", (this.width / 4) * 3)
+		cross.classList.add("cross")
 
-			document.dispatchEvent(event)
-		}
+		return cross
+	}
+
+	drawBackwardDiagonal() {
+		const cross = document.createElementNS("http://www.w3.org/2000/svg", "line")
+		cross.setAttribute("x1", (this.width / 4))
+		cross.setAttribute("y1", (this.width / 4))
+		cross.setAttribute("x2", (this.width / 4) * 3)
+		cross.setAttribute("y2", (this.width / 4) * 3)
+		cross.classList.add("cross")
+
+		return cross
+	}
+
+	emitEvent() {
+		const event = new CustomEvent("human-played", {
+			bubbles: true,
+			composed: true
+		})
+
+		document.dispatchEvent(event)
 	}
 }
 

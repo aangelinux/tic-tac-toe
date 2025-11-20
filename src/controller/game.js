@@ -16,11 +16,12 @@ export class Game extends EventTarget {
 
 	start() {
 		document.addEventListener("human-played", () => this.giveTurnToAI())
+		
 		this.board.draw(9)
 	}
 
 	giveTurnToAI() {
 		const tile = this.ai.play(this.board)
-		this.board.markCross(tile)
+		tile.markCross()
 	}
 }

@@ -27,7 +27,7 @@ describe("Tile", () => {
 		document.body.appendChild(tile)
 
 		jest.spyOn(tile, "isMarked").mockReturnValueOnce(false)
-		const mark = jest.spyOn(tile, "mark")
+		const mark = jest.spyOn(tile, "markCircle")
 
 		//Act
 		tile.click()
@@ -43,7 +43,7 @@ describe("Tile", () => {
 		document.body.appendChild(tile)
 
 		jest.spyOn(tile, "isMarked").mockReturnValueOnce(true)
-		const mark = jest.spyOn(tile, "mark")
+		const mark = jest.spyOn(tile, "markCircle")
 
 		//Act
 		tile.click()
@@ -57,11 +57,11 @@ describe("Tile", () => {
 		const mock = jest.fn()
 		document.addEventListener("human-played", mock)
 
-		const tile = document.createElement("board-tile")
+		const tile = new Tile()
 		document.body.appendChild(tile)
 
 		//Act
-		tile.mark()
+		tile.click()
 		
 		//Assert
 		expect(mock).toHaveBeenCalledTimes(1)
@@ -72,14 +72,10 @@ describe("Tile", () => {
 		const tile = new Tile()
 		document.body.appendChild(tile)
 
-		jest.spyOn(tile, "isMarked").mockReturnValueOnce(false)
-		const mark = jest.spyOn(tile, "mark")
-
 		//Act
-		tile.click()
+		tile.markCross()
 
 		//Assert
-		expect(mark).toHaveBeenCalledTimes(1)
 		expect(tile.svg.querySelector("line")).toBeInstanceOf(SVGElement)		
 	})
 })

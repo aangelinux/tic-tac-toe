@@ -36,6 +36,6 @@ describe("Game", () => {
 		game.giveTurnToAI()
 
 		//Assert
-		expect(boardMock.tiles[8].querySelector("svg")).toBeInstanceOf(SVGSVGElement)
+		expect(boardMock.tiles[8].svg.querySelector("line")).toBeInstanceOf(SVGElement)
 	})
 })
