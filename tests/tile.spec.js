@@ -27,11 +27,13 @@ describe("Tile", () => {
 		document.body.appendChild(tile)
 
 		jest.spyOn(tile, "isMarked").mockReturnValueOnce(false)
+		const mark = jest.spyOn(tile, "mark")
 
 		//Act
 		tile.click()
 
 		//Assert
-		expect(tile).toContainElement(SVGSVGElement)
+		expect(mark).toHaveBeenCalledTimes(1)
+		expect(tile.querySelector("svg")).toBeInstanceOf(SVGSVGElement)
 	})
 })

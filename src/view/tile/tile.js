@@ -13,11 +13,25 @@ export class Tile extends HTMLElement {
 	}
 
 	connectedCallback() {
-		this.addEventListener("click", () => this.isMarked())
+		this.addEventListener("click", () => {
+			if (this.isMarked()) {
+				return
+			} else {
+				this.mark()
+			}
+		})
 	}
 
 	isMarked() {
 		return this.getAttribute("marked") === true
+	}
+
+	mark() {
+		const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg")
+		svg.setAttribute("height", 0)
+		svg.setAttribute("width", 0)
+
+		this.appendChild(svg)
 	}
 }
 
