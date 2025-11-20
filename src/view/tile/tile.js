@@ -10,13 +10,16 @@ export class Tile extends HTMLElement {
 
 		this.attachShadow({ mode: 'open' })
 			.appendChild(template.content.cloneNode(true))
+
+		this.height = this.offsetHeight
+		this.width = this.offsetWidth
+
+		this.svg = this.shadowRoot.querySelector("svg")
 	}
 
 	connectedCallback() {
 		this.addEventListener("click", () => {
-			if (this.isMarked()) {
-				return
-			} else {
+			if (!this.isMarked()) {
 				this.mark()
 			}
 		})
@@ -27,11 +30,18 @@ export class Tile extends HTMLElement {
 	}
 
 	mark() {
-		const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg")
-		svg.setAttribute("height", 0)
-		svg.setAttribute("width", 0)
+		const circle = this.drawCircle()
+		this.svg.appendChild(circle)
+	}
 
-		this.appendChild(svg)
+	drawCircle() {
+		const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle")
+		circle.setAttribute("r", (this.height / 4)) // Remove magic number
+		circle.setAttribute("cx", (this.width / 2))
+		circle.setAttribute("cy", (this.height / 2))
+		circle.classList.add("circle")
+
+		return circle
 	}
 }
 

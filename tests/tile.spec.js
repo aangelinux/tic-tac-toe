@@ -21,7 +21,7 @@ describe("Tile", () => {
 		expect(isMarked).toHaveBeenCalledTimes(1)
 	})
 
-	it("should draw a mark when player clicks on an empty tile", () => {
+	it("should draw circle when player clicks on an empty tile", () => {
 		//Arrange
 		const tile = new Tile()
 		document.body.appendChild(tile)
@@ -34,6 +34,7 @@ describe("Tile", () => {
 
 		//Assert
 		expect(mark).toHaveBeenCalledTimes(1)
-		expect(tile.querySelector("svg")).toBeInstanceOf(SVGSVGElement)
+		expect(tile.svg).toBeInstanceOf(SVGSVGElement)
+		expect(tile.svg.querySelector("circle")).toBeInstanceOf(SVGElement)
 	})
 })
