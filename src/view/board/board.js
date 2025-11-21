@@ -12,10 +12,13 @@ export class Board extends HTMLElement {
 		this.attachShadow({ mode: 'open' })
 			.appendChild(template.content.cloneNode(true))
 
+		this.size = 9 // Default
 		this.tiles = []
+		this.board = this.shadowRoot.querySelector(".board")
 	}
 
 	connectedCallback() {
+		this.draw(this.size)
 	}
 
 	draw(size) {
@@ -23,6 +26,10 @@ export class Board extends HTMLElement {
 			const tile = new Tile()
 			this.tiles.push(tile)
 		}
+
+		this.tiles.forEach((tile) => {
+			this.board.appendChild(tile)
+		})
 	}
 }
 

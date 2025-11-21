@@ -1,4 +1,4 @@
-import { Tile } from "../../src/view/tile/tile"
+import { TileMock } from "./tile"
 
 export class BoardMock {
 
@@ -8,7 +8,7 @@ export class BoardMock {
 
 	draw(size) {
 		for (let i = 0; i < size; i++) {
-			const tile = new Tile()
+			const tile = new TileMock()
 			this.tiles.push(tile)
 		}
 	}

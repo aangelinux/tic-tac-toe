@@ -11,10 +11,12 @@ import { RandomStub } from "./__mocks__/random.js"
 describe("Game", () => {
 	it("should give turn to AI when human has played", () => {
 		//Arrange
-		const game = new Game(new BoardMock(), new AIMock(new RandomStub()))
+		const boardMock = new BoardMock()
+		const game = new Game(boardMock, new AIMock(new RandomStub()))
 		const giveTurnToAI = jest.spyOn(game, "giveTurnToAI") // TODO fix coupling to implm
 
 		//Act
+		boardMock.draw(9)
 		game.start()
 		const humanPlayedTurn = new CustomEvent("human-played", {
 			bubbles: true,
@@ -32,6 +34,7 @@ describe("Game", () => {
 		const game = new Game(boardMock, new AIMock(new RandomStub()))
 
 		//Act
+		boardMock.draw(9)
 		game.start()
 		game.giveTurnToAI()
 

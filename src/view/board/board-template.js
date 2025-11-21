@@ -1,7 +1,6 @@
 export const template = document.createElement("template")
 template.innerHTML = `
-	<div class="board">
-	</div>
+	<div class="board"></div>
 
 	<style>
 		.board {

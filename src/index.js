@@ -9,8 +9,9 @@ import { Random } from "./model/random.js"
 
 function main() {
 	const random = new Random()
-
-	new Game(new Board(), new AI(random)).start()
+	const game = new Game(new Board(), new AI(random))
+	
+	game.start()
 }
 
 main()

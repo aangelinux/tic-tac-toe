@@ -15,7 +15,8 @@ export class Tile extends HTMLElement {
 		this.height = this.offsetHeight
 		this.width = this.offsetWidth
 
-		this.svg = this.shadowRoot.querySelector("svg")
+		this.tile = this.shadowRoot.querySelector(".tile")
+		this.svg = this.shadowRoot.querySelector(".svg")
 	}
 
 	connectedCallback() {
