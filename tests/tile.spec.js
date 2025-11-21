@@ -17,6 +17,8 @@ describe("Tile", () => {
 
 		//Assert
 		expect(setSize).toHaveBeenCalledTimes(1)
+		expect(tile).toHaveProperty("height")
+		expect(tile).toHaveProperty("width")
 	})
 
 	it("should check if it's empty or marked when player clicks on it", () => {

@@ -12,7 +12,7 @@ export class AI {
 		this.random.value = 8
 		let index = this.random.value
 		let tile = board.tiles[index]
-		
+
 		while (tile.isMarked()) {
 			index = this.randomize()
 			tile = board.tiles[index]

@@ -13,10 +13,9 @@ describe("Game", () => {
 		//Arrange
 		const boardMock = new BoardMock()
 		const game = new Game(boardMock, new AIMock(new RandomStub()))
-		const giveTurnToAI = jest.spyOn(game, "giveTurnToAI") // TODO fix coupling to implm
+		const giveTurnToAI = jest.spyOn(game, "giveTurnToAI")
 
 		//Act
-		boardMock.draw(9)
 		game.start()
 		const humanPlayedTurn = new CustomEvent("human-played", {
 			bubbles: true,
@@ -34,7 +33,6 @@ describe("Game", () => {
 		const game = new Game(boardMock, new AIMock(new RandomStub()))
 
 		//Act
-		boardMock.draw(9)
 		game.start()
 		game.giveTurnToAI()
 

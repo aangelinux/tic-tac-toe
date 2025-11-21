@@ -41,14 +41,14 @@ export class Tile extends HTMLElement {
 	}
 
 	isMarked() {
-		return this.getAttribute("marked") === "true"
+		return this.hasAttribute("marked")
 	}
 
 	markCircle() {
 		const circle = this.drawCircle()
 		this.svg.appendChild(circle)
 
-		this.setAttribute("marked", true)
+		this.setAttribute("marked", "")
 	}
 
 	markCross() {
@@ -57,7 +57,7 @@ export class Tile extends HTMLElement {
 		const backwardDiagonal = this.drawBackwardDiagonal()
 		this.svg.appendChild(backwardDiagonal)
 
-		this.setAttribute("marked", true)
+		this.setAttribute("marked", "")
 	}
 
 	drawCircle() {

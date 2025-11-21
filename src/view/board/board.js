@@ -3,7 +3,6 @@
  */
 
 import { template } from "./board-template.js"
-import { Tile } from "../tile/tile.js"
 
 export class Board extends HTMLElement {
 	constructor() {

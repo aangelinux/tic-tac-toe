@@ -15,6 +15,7 @@ export class Game extends EventTarget {
 	}
 
 	start() {
+		document.body.appendChild(this.board)
 		document.addEventListener("human-played", () => this.giveTurnToAI())
 	}
 
