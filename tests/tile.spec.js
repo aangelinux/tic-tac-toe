@@ -2,7 +2,6 @@
  * Unit tests for the board tiles.
  */
 
-import "@testing-library/jest-dom"
 import { describe, it, expect, jest } from "@jest/globals"
 import { Tile } from "../src/view/tile/tile"
 

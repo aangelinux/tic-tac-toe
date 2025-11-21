@@ -9,7 +9,7 @@ UI should display a board containing 3 x 3 tiles. [x]
 Player should be able to mark one **empty** tile at a time by pressing on it. [x]
   
 ## Req 3 AI
-AI should mark a random **empty** tile when it's their turn.
+AI should mark a random **empty** tile when it's their turn. [x]
   
 ## Req 4 Game End
 Game should end when Player or AI has three marks in a row.
