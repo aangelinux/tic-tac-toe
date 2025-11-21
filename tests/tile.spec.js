@@ -7,6 +7,18 @@ import { describe, it, expect, jest } from "@jest/globals"
 import { Tile } from "../src/view/tile/tile"
 
 describe("Tile", () => {
+	it("should set width and height when appended to the DOM", () => {
+		//Arrange
+		const tile = new Tile()
+		const setSize = jest.spyOn(tile, "setSize")
+
+		//Act
+		document.body.appendChild(tile)
+
+		//Assert
+		expect(setSize).toHaveBeenCalledTimes(1)
+	})
+
 	it("should check if it's empty or marked when player clicks on it", () => {
 		//Arrange
 		const tile = new Tile()

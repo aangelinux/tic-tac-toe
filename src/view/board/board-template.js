@@ -11,7 +11,7 @@ template.innerHTML = `
 			grid-template-columns: auto auto auto;
 			grid-template-rows: auto auto auto;
 			gap: 3px;
-			padding: 5px;
+			padding: 2px;
 			background-color: lightblue;
 		}
 	</style>

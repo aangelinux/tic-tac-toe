@@ -9,6 +9,7 @@ template.innerHTML = `
 		border: 3px solid black;
 		border-radius: 5px;
 		cursor: pointer;
+		position: absolute;
 	}
 
 	.svg {

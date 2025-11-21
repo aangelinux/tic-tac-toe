@@ -12,20 +12,32 @@ export class Tile extends HTMLElement {
 		this.attachShadow({ mode: 'open' })
 			.appendChild(template.content.cloneNode(true))
 
-		this.height = this.offsetHeight
-		this.width = this.offsetWidth
+		this.height = null
+		this.width = null
 
 		this.tile = this.shadowRoot.querySelector(".tile")
 		this.svg = this.shadowRoot.querySelector(".svg")
 	}
 
 	connectedCallback() {
+		this.height = this.getBoundingClientRect().height
+		this.width = this.getBoundingClientRect().width
+
+		this.setSize()
+
 		this.addEventListener("click", () => {
 			if (!this.isMarked()) {
 				this.markCircle()
 				this.emitEvent()
 			}
 		})
+	}
+
+	setSize() {
+		this.tile.style.height = `${this.height}px`
+		this.tile.style.width = `${this.width}px`
+		this.svg.style.height = `${this.height}px`
+		this.svg.style.width = `${this.width}px`
 	}
 
 	isMarked() {

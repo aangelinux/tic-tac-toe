@@ -23,13 +23,10 @@ export class Board extends HTMLElement {
 
 	draw(size) {
 		for (let i = 0; i < size; i++) {
-			const tile = new Tile()
+			const tile = document.createElement("board-tile")
 			this.tiles.push(tile)
-		}
-
-		this.tiles.forEach((tile) => {
 			this.board.appendChild(tile)
-		})
+		}
 	}
 }
 
