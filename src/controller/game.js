@@ -18,14 +18,19 @@ export class Game extends EventTarget {
 
 	start() {
 		document.body.appendChild(this.board)
+
 		document.addEventListener("human-played", () => {
+			this.disableTiles()
 			this.timer.on(this.#delay, this.aiMove.bind(this))
 		})
 	}
 
+	disableTiles() {
+
+	}
+
 	aiMove() {
 		const tile = this.ai.play(this.board)
-
 		tile.markCross()
 	}
 }
