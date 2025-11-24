@@ -20,9 +20,6 @@ export class Tile extends HTMLElement {
 	}
 
 	connectedCallback() {
-		this.height = this.getBoundingClientRect().height
-		this.width = this.getBoundingClientRect().width
-
 		this.setSize()
 
 		this.addEventListener("click", () => {
@@ -34,6 +31,9 @@ export class Tile extends HTMLElement {
 	}
 
 	setSize() {
+		this.height = this.getBoundingClientRect().height
+		this.width = this.getBoundingClientRect().width
+		
 		this.tile.style.height = `${this.height}px`
 		this.tile.style.width = `${this.width}px`
 		this.svg.style.height = `${this.height}px`
@@ -45,9 +45,10 @@ export class Tile extends HTMLElement {
 	}
 
 	disable() {
-		this.setAttribute("disabled", "")
 		this.style.pointerEvents = "none"
-		this.style.opacity = "50%"
+		this.style.opacity = "70%"
+
+		this.setAttribute("disabled", "")
 	}
 
 	markCircle() {
