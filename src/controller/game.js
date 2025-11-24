@@ -19,11 +19,11 @@ export class Game extends EventTarget {
 	start() {
 		document.body.appendChild(this.board)
 		document.addEventListener("human-played", () => {
-			this.timer.on(this.#delay, this.giveTurnToAI.bind(this))
+			this.timer.on(this.#delay, this.aiMove.bind(this))
 		})
 	}
 
-	giveTurnToAI() {
+	aiMove() {
 		const tile = this.ai.play(this.board)
 
 		tile.markCross()

@@ -10,26 +10,37 @@ import { TimerMock } from "./__mocks__/timer.js"
 import { RandomStub } from "./__mocks__/random.js"
 
 describe("Game", () => {
-	it("should give turn to AI when human has played", () => {
+	it("should start a timer when player marks a tile", () => {
 		//Arrange
-		const boardMock = new BoardMock()
-		const game = new Game(boardMock, new AIMock(new RandomStub()), new TimerMock())
-		const giveTurnToAI = jest.spyOn(game, "giveTurnToAI")
+		const timerMock = new TimerMock()
+		const game = new Game(new BoardMock(), new AIMock(new RandomStub()), timerMock)
+		const timer = jest.spyOn(timerMock, "on")
+
+		//Act
+		game.start()
+		const humanPlayed = new CustomEvent("human-played", { bubbles: true, composed: true })
+		document.documentElement.dispatchEvent(humanPlayed)
+
+		//Assert
+		expect(timer).toHaveBeenCalledTimes(1)
+	})
+
+	it("should let AI play when timer runs out", () => {
+		//Arrange
+		const game = new Game(new BoardMock(), new AIMock(new RandomStub()), new TimerMock())
+		const aiMove = jest.spyOn(game, "aiMove")
 
 		jest.useFakeTimers()
 
 		//Act
 		game.start()
-		const humanPlayedTurn = new CustomEvent("human-played", {
-			bubbles: true,
-			composed: true
-		})
-		document.documentElement.dispatchEvent(humanPlayedTurn)
+		const humanPlayed = new CustomEvent("human-played", { bubbles: true, composed: true })
+		document.documentElement.dispatchEvent(humanPlayed)
 
 		jest.advanceTimersByTime(1000)
 
 		//Assert
-		expect(giveTurnToAI).toHaveBeenCalledTimes(1)
+		expect(aiMove).toHaveBeenCalledTimes(1)
 	})
 
 	it("should tell Board to mark AI's chosen tile", () => {
@@ -39,27 +50,9 @@ describe("Game", () => {
 
 		//Act
 		game.start()
-		game.giveTurnToAI()
+		game.aiMove()
 
 		//Assert
 		expect(boardMock.tiles[8].svg.querySelector("line")).toBeInstanceOf(SVGElement)
-	})
-
-	it("should start a timer when player marks a tile", () => {
-		//Arrange
-		const timerMock = new TimerMock()
-		const game = new Game(new BoardMock(), new AIMock(new RandomStub()), timerMock)
-		const timer = jest.spyOn(timerMock, "on")
-
-		//Act
-		game.start()
-		const humanPlayedTurn = new CustomEvent("human-played", {
-			bubbles: true,
-			composed: true
-		})
-		document.documentElement.dispatchEvent(humanPlayedTurn)
-
-		//Assert
-		expect(timer).toHaveBeenCalledTimes(1)
 	})
 })
