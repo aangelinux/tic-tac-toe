@@ -36,7 +36,6 @@ describe("Game", () => {
 		game.start()
 		const humanPlayed = new CustomEvent("human-played", { bubbles: true, composed: true })
 		document.documentElement.dispatchEvent(humanPlayed)
-
 		jest.advanceTimersByTime(1000)
 
 		//Assert
@@ -54,5 +53,19 @@ describe("Game", () => {
 
 		//Assert
 		expect(boardMock.tiles[8].svg.querySelector("line")).toBeInstanceOf(SVGElement)
+	})
+
+	it("should disable all tiles from player until AI has played", () => {
+		//Arrange
+		const game = new Game(new BoardMock(), new AIMock(new RandomStub()), new TimerMock())
+		const disableTiles = jest.spyOn(game, "disableTiles")
+
+		//Act
+		game.start()
+		const humanPlayed = new CustomEvent("human-played", { bubbles: true, composed: true })
+		document.documentElement.dispatchEvent(humanPlayed)
+
+		//Assert
+		expect(disableTiles).toHaveBeenCalledTimes(1)
 	})
 })
