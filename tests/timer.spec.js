@@ -38,22 +38,6 @@ describe("Timer", () => {
 		expect(mock).toHaveBeenCalledTimes(1)	
 	})
 
-	it("should check if timer is currently running", () => {
-		//Arrange
-		const timer = new Timer()
-		const milliSeconds = 200
-		const mock = jest.fn()
-		const isRunning = jest.spyOn(timer, "isRunning")
-
-		jest.useFakeTimers()
-
-		//Act
-		timer.on(milliSeconds, mock)
-		
-		//Assert
-		expect(isRunning).toHaveBeenCalledTimes(1)			
-	})
-
 	afterEach(() => {
 		jest.clearAllMocks()
 	})
