@@ -3,21 +3,24 @@
  */
 
 export class Game extends EventTarget {
+	#delay = 1000 // delay between AI and human turn; in ms
 	#turn // number. need boundary tests to make sure turn is between 0-9
 	#player // current player: user | AI
-	#row // for keeping track of how many noughts/crosses currently in a row
-	#timer // delay between AI and human; in ms
+	#row // keep track of how many noughts/crosses currently in a row
 
-	constructor(board, ai) {
+	constructor(board, ai, timer) {
 		super()
 
 		this.board = board
 		this.ai = ai
+		this.timer = timer
 	}
 
 	start() {
 		document.body.appendChild(this.board)
-		document.addEventListener("human-played", () => this.giveTurnToAI())
+		document.addEventListener("human-played", () => {
+			this.timer.on(this.#delay, this.giveTurnToAI.bind(this))
+		})
 	}
 
 	giveTurnToAI() {

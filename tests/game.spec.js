@@ -6,14 +6,17 @@ import { describe, it, expect, jest } from "@jest/globals"
 import { Game } from "../src/controller/game"
 import { AIMock } from "./__mocks__/ai.js"
 import { BoardMock } from "./__mocks__/board.js"
+import { TimerMock } from "./__mocks__/timer.js"
 import { RandomStub } from "./__mocks__/random.js"
 
 describe("Game", () => {
 	it("should give turn to AI when human has played", () => {
 		//Arrange
 		const boardMock = new BoardMock()
-		const game = new Game(boardMock, new AIMock(new RandomStub()))
+		const game = new Game(boardMock, new AIMock(new RandomStub()), new TimerMock())
 		const giveTurnToAI = jest.spyOn(game, "giveTurnToAI")
+
+		jest.useFakeTimers()
 
 		//Act
 		game.start()
@@ -23,6 +26,8 @@ describe("Game", () => {
 		})
 		document.documentElement.dispatchEvent(humanPlayedTurn)
 
+		jest.advanceTimersByTime(1000)
+
 		//Assert
 		expect(giveTurnToAI).toHaveBeenCalledTimes(1)
 	})
@@ -30,7 +35,7 @@ describe("Game", () => {
 	it("should tell Board to mark AI's chosen tile", () => {
 		//Arrange
 		const boardMock = new BoardMock()
-		const game = new Game(boardMock, new AIMock(new RandomStub()))
+		const game = new Game(boardMock, new AIMock(new RandomStub()), new TimerMock())
 
 		//Act
 		game.start()

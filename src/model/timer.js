@@ -3,14 +3,16 @@
  */
 
 export class Timer {
+	#id
+
 	constructor() {
-		this.id = null
+		this.#id = null
 	}
 
 	on(ms, callback) {
-		this.id = setTimeout(() => {
+		this.#id = setTimeout(() => {
 			callback()
-			this.id = null
+			this.#id = null
 		}, ms)
 	}
 }
