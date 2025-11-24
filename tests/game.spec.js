@@ -2,7 +2,8 @@
  * Unit tests for the game controller.
  */
 
-import { describe, it, expect, jest } from "@jest/globals"
+import '@testing-library/jest-dom'
+import { describe, it, expect, jest, beforeEach, afterEach } from "@jest/globals"
 import { Game } from "../src/controller/game"
 import { AIMock } from "./__mocks__/ai.js"
 import { BoardMock } from "./__mocks__/board.js"
@@ -10,6 +11,10 @@ import { TimerMock } from "./__mocks__/timer.js"
 import { RandomStub } from "./__mocks__/random.js"
 
 describe("Game", () => {
+	beforeEach(() => {
+		jest.useFakeTimers()
+	})
+	
 	it("should start a timer when player marks a tile", () => {
 		//Arrange
 		const timerMock = new TimerMock()
@@ -29,8 +34,6 @@ describe("Game", () => {
 		//Arrange
 		const game = new Game(new BoardMock(), new AIMock(new RandomStub()), new TimerMock())
 		const aiMove = jest.spyOn(game, "aiMove")
-
-		jest.useFakeTimers()
 
 		//Act
 		game.start()
@@ -57,8 +60,8 @@ describe("Game", () => {
 
 	it("should disable board from player until AI has played", () => {
 		//Arrange
-		const game = new Game(new BoardMock(), new AIMock(new RandomStub()), new TimerMock())
-		const disableBoard = jest.spyOn(game, "disableBoard")
+		const boardMock = new BoardMock()
+		const game = new Game(boardMock, new AIMock(new RandomStub()), new TimerMock())
 
 		//Act
 		game.start()
@@ -66,15 +69,13 @@ describe("Game", () => {
 		document.documentElement.dispatchEvent(humanPlayed)
 
 		//Assert
-		expect(disableBoard).toHaveBeenCalledTimes(1)
+		expect(boardMock.tiles[0]).toHaveAttribute("disabled")
 	})
 
 	it("should re-enable board when AI has played", () => {
 		//Arrange
-		const game = new Game(new BoardMock(), new AIMock(new RandomStub()), new TimerMock())
-		const enableBoard = jest.spyOn(game, "enableBoard")
-
-		jest.useFakeTimers()
+		const boardMock = new BoardMock()
+		const game = new Game(boardMock, new AIMock(new RandomStub()), new TimerMock())
 
 		//Act
 		game.start()
@@ -83,6 +84,12 @@ describe("Game", () => {
 		jest.advanceTimersByTime(1000)
 
 		//Assert
-		expect(enableBoard).toHaveBeenCalledTimes(1)		
+		expect(boardMock.tiles[0]).not.toHaveAttribute("disabled")
+	})
+
+	afterEach(() => {
+		document.body.innerHTML = ""
+		jest.clearAllMocks()
+		jest.clearAllTimers()
 	})
 })

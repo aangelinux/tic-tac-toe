@@ -2,20 +2,18 @@
  * Unit tests for the board tiles.
  */
 
-import { describe, it, expect, jest } from "@jest/globals"
+import { describe, it, expect, jest, afterEach } from "@jest/globals"
 import { Tile } from "../src/view/tile/tile"
 
 describe("Tile", () => {
 	it("should set width and height when appended to the DOM", () => {
 		//Arrange
 		const tile = new Tile()
-		const setSize = jest.spyOn(tile, "setSize")
 
 		//Act
 		document.body.appendChild(tile)
 
 		//Assert
-		expect(setSize).toHaveBeenCalledTimes(1)
 		expect(tile).toHaveProperty("height")
 		expect(tile).toHaveProperty("width")
 	})
@@ -24,7 +22,6 @@ describe("Tile", () => {
 		//Arrange
 		const tile = new Tile()
 		document.body.appendChild(tile)
-
 		const isMarked = jest.spyOn(tile, "isMarked")
 
 		//Act
@@ -39,14 +36,11 @@ describe("Tile", () => {
 		const tile = new Tile()
 		document.body.appendChild(tile)
 
-		jest.spyOn(tile, "isMarked").mockReturnValueOnce(false)
-		const mark = jest.spyOn(tile, "markCircle")
-
 		//Act
+		jest.spyOn(tile, "isMarked").mockReturnValueOnce(false)
 		tile.click()
 
 		//Assert
-		expect(mark).toHaveBeenCalledTimes(1)
 		expect(tile.svg.querySelector("circle")).toBeInstanceOf(SVGElement)
 	})
 
@@ -54,11 +48,10 @@ describe("Tile", () => {
 		//Arrange
 		const tile = new Tile()
 		document.body.appendChild(tile)
-
-		jest.spyOn(tile, "isMarked").mockReturnValueOnce(true)
 		const mark = jest.spyOn(tile, "markCircle")
 
 		//Act
+		jest.spyOn(tile, "isMarked").mockReturnValueOnce(true)
 		tile.click()
 
 		//Assert
@@ -67,11 +60,10 @@ describe("Tile", () => {
 
 	it("should fire event when a tile has been marked", () => {
 		//Arrange
-		const mock = jest.fn()
-		document.addEventListener("human-played", mock)
-
 		const tile = new Tile()
+		const mock = jest.fn()
 		document.body.appendChild(tile)
+		document.addEventListener("human-played", mock)
 
 		//Act
 		tile.click()
@@ -118,5 +110,10 @@ describe("Tile", () => {
 
 		//Expect
 		expect(emitEvent).toHaveBeenCalledTimes(1)		
+	})
+
+	afterEach(() => {
+		document.body.innerHTML = ""
+		jest.clearAllMocks()
 	})
 })

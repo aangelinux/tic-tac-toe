@@ -2,7 +2,7 @@
  * Unit tests for the AI player.
  */
 
-import { describe, it, expect, jest } from "@jest/globals"
+import { describe, it, expect, jest, afterEach } from "@jest/globals"
 import { AI } from "../src/model/ai.js"
 import { RandomStub } from "./__mocks__/random.js"
 import { BoardMock } from "./__mocks__/board.js"
@@ -35,5 +35,10 @@ describe("AI", () => {
 
 		//Assert
 		expect(randomize).toHaveBeenCalledTimes(1)
+	})
+
+	afterEach(() => {
+		document.body.innerHTML = ""
+		jest.clearAllMocks()
 	})
 })

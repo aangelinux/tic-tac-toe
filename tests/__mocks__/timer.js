@@ -3,9 +3,9 @@ export class TimerMock {
 	constructor() {
 	}
 
-	on(ms, callback) {
+	on(ms, ...callback) {
 		setTimeout(() => {
-			callback()
+			callback.forEach(func => func())
 		}, ms)
 	}
 }

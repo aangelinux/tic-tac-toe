@@ -1,6 +1,8 @@
-export class TileMock {
+export class TileMock extends HTMLElement {
 
 	constructor() {
+		super()
+
 		this.svg = document.createElementNS("http://www.w3.org/2000/svg", "svg")
 	}
 
@@ -14,8 +16,12 @@ export class TileMock {
 	}
 
 	disable() {
+		this.setAttribute("disabled", "")
 	}
 
 	enable() {
+		this.removeAttribute("disabled")
 	}
 }
+
+customElements.define("board-tile", TileMock)
