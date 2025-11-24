@@ -8,8 +8,14 @@ export class Timer {
 	}
 
 	on(ms, callback) {
+		this.isRunning()
+		
 		this.id = setTimeout(() => {
 			callback()
 		}, ms)
+	}
+
+	isRunning() {
+
 	}
 }
