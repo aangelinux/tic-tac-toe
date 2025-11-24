@@ -33,7 +33,7 @@ export class Tile extends HTMLElement {
 	setSize() {
 		this.height = this.getBoundingClientRect().height
 		this.width = this.getBoundingClientRect().width
-		
+
 		this.tile.style.height = `${this.height}px`
 		this.tile.style.width = `${this.width}px`
 		this.svg.style.height = `${this.height}px`
@@ -49,6 +49,13 @@ export class Tile extends HTMLElement {
 		this.style.opacity = "70%"
 
 		this.setAttribute("disabled", "")
+	}
+
+	enable() {
+		this.style.pointerEvents = "auto"
+		this.style.opacity = "100%"
+
+		this.removeAttribute("disabled")
 	}
 
 	markCircle() {
