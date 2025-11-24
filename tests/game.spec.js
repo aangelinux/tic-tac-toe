@@ -55,7 +55,7 @@ describe("Game", () => {
 		expect(boardMock.tiles[8].svg.querySelector("line")).toBeInstanceOf(SVGElement)
 	})
 
-	it("should disable all tiles from player until AI has played", () => {
+	it("should disable board from player until AI has played", () => {
 		//Arrange
 		const game = new Game(new BoardMock(), new AIMock(new RandomStub()), new TimerMock())
 		const disableBoard = jest.spyOn(game, "disableBoard")
@@ -67,5 +67,18 @@ describe("Game", () => {
 
 		//Assert
 		expect(disableBoard).toHaveBeenCalledTimes(1)
+	})
+
+	it("should enable board when AI has played", () => {
+		//Arrange
+		const game = new Game(new BoardMock(), new AIMock(new RandomStub()), new TimerMock())
+		const enableBoard = jest.spyOn(game, "enableBoard")
+
+		//Act
+		game.start()
+		game.aiMove()
+
+		//Assert
+		expect(enableBoard).toHaveBeenCalledTimes(1)		
 	})
 })
