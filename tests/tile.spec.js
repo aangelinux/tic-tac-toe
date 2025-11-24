@@ -91,4 +91,18 @@ describe("Tile", () => {
 		//Assert
 		expect(tile.svg.querySelector("line")).toBeInstanceOf(SVGElement)		
 	})
+
+	it("should be unclickable while disabled", () => {
+		//Arrange
+		const tile = new Tile()
+		document.body.appendChild(tile)
+		const emitEvent = jest.spyOn(tile, "emitEvent")
+		
+		//Act
+		tile.disable()
+		tile.click()
+
+		//Expect
+		expect(emitEvent).not.toHaveBeenCalled()
+	})
 })
