@@ -1,14 +1,15 @@
 /**
- * Timer that takes any callback function.
+ * Timer that invokes a callback function.
  */
 
 export class Timer {
 	constructor() {
+		this.id = null
 	}
 
-	on(seconds, callback) {
-		setTimeout(() => {
+	on(ms, callback) {
+		this.id = setTimeout(() => {
 			callback()
-		}, seconds)
+		}, ms)
 	}
 }

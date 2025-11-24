@@ -2,14 +2,14 @@
  * Unit tests for the game timer.
  */
 
-import { describe, it, expect, jest } from "@jest/globals"
+import { describe, it, expect, jest, afterEach } from "@jest/globals"
 import { Timer } from "../src/model/timer"
 
 describe("Timer", () => {
 	it("should be able to start a timer", () => {
 		//Arrange
 		const timer = new Timer()
-		const milliSeconds = 2000
+		const milliSeconds = 200
 		const mock = jest.fn()
 
 		jest.useFakeTimers()
@@ -25,7 +25,7 @@ describe("Timer", () => {
 	it("should invoke the callback when timer runs out", () => {
 		//Arrange
 		const timer = new Timer()
-		const milliSeconds = 2000
+		const milliSeconds = 200
 		const mock = jest.fn()
 
 		jest.useFakeTimers()
@@ -36,5 +36,9 @@ describe("Timer", () => {
 		
 		//Assert
 		expect(mock).toHaveBeenCalledTimes(1)	
+	})
+
+	afterEach(() => {
+		jest.clearAllMocks()
 	})
 })
