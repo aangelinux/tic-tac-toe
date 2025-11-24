@@ -12,4 +12,7 @@ export class TileMock {
 	isMarked() {
 		return false
 	}
+
+	disable() {
+	}
 }

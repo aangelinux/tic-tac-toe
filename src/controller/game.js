@@ -26,7 +26,9 @@ export class Game extends EventTarget {
 	}
 
 	disableTiles() {
-
+		this.board.tiles.forEach((tile) => {
+			tile.disable()
+		})
 	}
 
 	aiMove() {

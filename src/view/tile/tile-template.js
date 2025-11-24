@@ -10,6 +10,7 @@ template.innerHTML = `
 		border-radius: 5px;
 		cursor: pointer;
 		position: absolute;
+		background-color: lightblue;
 	}
 
 	.svg {

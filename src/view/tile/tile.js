@@ -44,6 +44,11 @@ export class Tile extends HTMLElement {
 		return this.hasAttribute("marked")
 	}
 
+	disable() {
+		this.style.pointerEvents = "none"
+		this.style.opacity = "50%"
+	}
+
 	markCircle() {
 		const circle = this.drawCircle()
 		this.svg.appendChild(circle)
