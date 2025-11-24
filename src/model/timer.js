@@ -1,5 +1,5 @@
 /**
- * Represents a timer.
+ * Timer that takes any callback function.
  */
 
 export class Timer {

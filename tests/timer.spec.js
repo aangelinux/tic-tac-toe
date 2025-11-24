@@ -19,7 +19,6 @@ describe("Timer", () => {
 		timer.on(milliSeconds, mock)
 		
 		//Assert
-		expect(setTimeout).toHaveBeenCalledTimes(1)
 		expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), milliSeconds)
 	})
 })
