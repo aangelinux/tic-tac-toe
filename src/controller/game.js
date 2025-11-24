@@ -21,7 +21,10 @@ export class Game extends EventTarget {
 
 		document.addEventListener("human-played", () => {
 			this.disableBoard()
-			this.timer.on(this.#delay, this.aiMove.bind(this))
+			this.timer.on(this.#delay, () => {
+				this.aiMove()
+				this.enableBoard()
+			})
 		})
 	}
 
@@ -34,11 +37,11 @@ export class Game extends EventTarget {
 	aiMove() {
 		const tile = this.ai.play(this.board)
 		tile.markCross()
-
-		this.enableBoard()
 	}
 
 	enableBoard() {
-
+		this.board.tiles.forEach((tile) => {
+			tile.enable()
+		})
 	}
 }

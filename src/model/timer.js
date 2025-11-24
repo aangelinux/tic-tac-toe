@@ -9,9 +9,9 @@ export class Timer {
 		this.#id = null
 	}
 
-	on(ms, callback) {
+	on(ms, ...callback) {
 		this.#id = setTimeout(() => {
-			callback()
+			callback.forEach(func => func())
 			this.#id = null
 		}, ms)
 	}

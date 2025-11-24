@@ -74,9 +74,13 @@ describe("Game", () => {
 		const game = new Game(new BoardMock(), new AIMock(new RandomStub()), new TimerMock())
 		const enableBoard = jest.spyOn(game, "enableBoard")
 
+		jest.useFakeTimers()
+
 		//Act
 		game.start()
-		game.aiMove()
+		const humanPlayed = new CustomEvent("human-played", { bubbles: true, composed: true })
+		document.documentElement.dispatchEvent(humanPlayed)
+		jest.advanceTimersByTime(1000)
 
 		//Assert
 		expect(enableBoard).toHaveBeenCalledTimes(1)		
