@@ -3,18 +3,20 @@
  */
 
 import { describe, it, expect, jest } from "@jest/globals"
+import { Timer } from "../src/model/timer"
 
 describe("Timer", () => {
 	it("should be able to start a timer", () => {
 		//Arrange
 		const timer = new Timer()
 		const milliSeconds = 2000
+		const mock = jest.fn()
 
-		jest.spyOn(global, "setTimeout")
 		jest.useFakeTimers()
+		jest.spyOn(global, "setTimeout")
 
 		//Act
-		timer.on(milliSeconds)
+		timer.on(milliSeconds, mock)
 		
 		//Assert
 		expect(setTimeout).toHaveBeenCalledTimes(1)
