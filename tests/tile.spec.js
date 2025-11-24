@@ -105,4 +105,20 @@ describe("Tile", () => {
 		//Expect
 		expect(emitEvent).not.toHaveBeenCalled()
 	})
+
+	it("should be clickable while enabled", () => {
+		//Arrange
+		const tile = new Tile()
+		document.body.appendChild(tile)
+		const emitEvent = jest.spyOn(tile, "emitEvent")
+		
+		//Act
+		tile.disable()
+		tile.click()
+		tile.enable()
+		tile.click()
+
+		//Expect
+		expect(emitEvent).toHaveBeenCalledTimes(1)		
+	})
 })
