@@ -39,4 +39,22 @@ describe("Game", () => {
 		//Assert
 		expect(boardMock.tiles[8].svg.querySelector("line")).toBeInstanceOf(SVGElement)
 	})
+
+	it("should start a timer when player marks a tile", () => {
+		//Arrange
+		const timerMock = new TimerMock()
+		const game = new Game(new BoardMock(), new AIMock(new RandomStub()), timerMock)
+		const timer = jest.spyOn(timerMock, "on")
+
+		//Act
+		game.start()
+		const humanPlayedTurn = new CustomEvent("human-played", {
+			bubbles: true,
+			composed: true
+		})
+		document.documentElement.dispatchEvent(humanPlayedTurn)
+
+		//Assert
+		expect(timer).toHaveBeenCalledTimes(1)
+	})
 })

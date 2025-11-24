@@ -4,8 +4,9 @@
 
 export class Game extends EventTarget {
 	#turn // number. need boundary tests to make sure turn is between 0-9
-	#player // user | AI
+	#player // current player: user | AI
 	#row // for keeping track of how many noughts/crosses currently in a row
+	#timer // delay between AI and human; in ms
 
 	constructor(board, ai) {
 		super()
