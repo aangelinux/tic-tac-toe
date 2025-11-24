@@ -8,7 +8,7 @@ export class Timer {
 
 	on(seconds, callback) {
 		setTimeout(() => {
-			callback()
+			callback
 		}, seconds)
 	}
 }
