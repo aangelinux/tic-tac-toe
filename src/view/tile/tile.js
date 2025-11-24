@@ -26,7 +26,7 @@ export class Tile extends HTMLElement {
 		this.setSize()
 
 		this.addEventListener("click", () => {
-			if (!this.isMarked()) {
+			if (!this.isMarked() && !this.hasAttribute("disabled")) {
 				this.markCircle()
 				this.emitEvent()
 			}
@@ -45,6 +45,7 @@ export class Tile extends HTMLElement {
 	}
 
 	disable() {
+		this.setAttribute("disabled", "")
 		this.style.pointerEvents = "none"
 		this.style.opacity = "50%"
 	}
