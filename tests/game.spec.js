@@ -69,7 +69,7 @@ describe("Game", () => {
 		expect(disableBoard).toHaveBeenCalledTimes(1)
 	})
 
-	it("should enable board when AI has played", () => {
+	it("should re-enable board when AI has played", () => {
 		//Arrange
 		const game = new Game(new BoardMock(), new AIMock(new RandomStub()), new TimerMock())
 		const enableBoard = jest.spyOn(game, "enableBoard")

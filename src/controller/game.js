@@ -34,5 +34,11 @@ export class Game extends EventTarget {
 	aiMove() {
 		const tile = this.ai.play(this.board)
 		tile.markCross()
+
+		this.enableBoard()
+	}
+
+	enableBoard() {
+
 	}
 }
