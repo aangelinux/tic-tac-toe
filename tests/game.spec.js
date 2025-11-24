@@ -58,7 +58,7 @@ describe("Game", () => {
 	it("should disable all tiles from player until AI has played", () => {
 		//Arrange
 		const game = new Game(new BoardMock(), new AIMock(new RandomStub()), new TimerMock())
-		const disableTiles = jest.spyOn(game, "disableTiles")
+		const disableBoard = jest.spyOn(game, "disableBoard")
 
 		//Act
 		game.start()
@@ -66,6 +66,6 @@ describe("Game", () => {
 		document.documentElement.dispatchEvent(humanPlayed)
 
 		//Assert
-		expect(disableTiles).toHaveBeenCalledTimes(1)
+		expect(disableBoard).toHaveBeenCalledTimes(1)
 	})
 })

@@ -20,12 +20,12 @@ export class Game extends EventTarget {
 		document.body.appendChild(this.board)
 
 		document.addEventListener("human-played", () => {
-			this.disableTiles()
+			this.disableBoard()
 			this.timer.on(this.#delay, this.aiMove.bind(this))
 		})
 	}
 
-	disableTiles() {
+	disableBoard() {
 		this.board.tiles.forEach((tile) => {
 			tile.disable()
 		})

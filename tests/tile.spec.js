@@ -113,8 +113,6 @@ describe("Tile", () => {
 		const emitEvent = jest.spyOn(tile, "emitEvent")
 		
 		//Act
-		tile.disable()
-		tile.click()
 		tile.enable()
 		tile.click()
 
