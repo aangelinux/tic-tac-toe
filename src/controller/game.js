@@ -20,6 +20,7 @@ export class Game extends EventTarget {
 		document.body.appendChild(this.board)
 
 		document.addEventListener("human-played", () => {
+			this.hasThreeInARow()
 			this.disableBoard()
 			this.timer.on(this.#delay, () => {
 				this.aiMove()
@@ -43,5 +44,9 @@ export class Game extends EventTarget {
 		this.board.tiles.forEach((tile) => {
 			tile.enable()
 		})
+	}
+
+	hasThreeInARow() {
+
 	}
 }
