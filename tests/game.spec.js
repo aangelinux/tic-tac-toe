@@ -87,6 +87,20 @@ describe("Game", () => {
 		expect(boardMock.tiles[0]).not.toHaveAttribute("disabled")
 	})
 
+	it("should check if there are three in a row after player turn", () => {
+		//Arrange
+		const game = new Game(new BoardMock(), new AIMock(new RandomStub()), new TimerMock())
+		const hasThreeInARow = jest.spyOn(game, "hasThreeInARow")
+
+		//Act
+		game.start()
+		const humanPlayed = new CustomEvent("human-played", { bubbles: true, composed: true })
+		document.documentElement.dispatchEvent(humanPlayed)
+
+		//Assert
+		expect(hasThreeInARow).toHaveBeenCalledTimes(1)
+	})
+
 	afterEach(() => {
 		document.body.innerHTML = ""
 		jest.clearAllMocks()
