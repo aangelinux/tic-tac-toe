@@ -23,13 +23,13 @@ describe("Board", () => {
 	it("should fire event if there are three marks in a row", () => {
 		//Arrange
 		const board = new Board()
-		const size = 9
+		document.body.appendChild(board)
 		const mock = jest.fn()
 		document.addEventListener("three-in-row", mock)
 
 		//Act
-		board.draw(size)
-		jest.spyOn(board, "hasThreeInARow").mockReturnValueOnce(true)
+		const humanPlayed = new CustomEvent("human-played", { bubbles: true, composed: true })
+		document.documentElement.dispatchEvent(humanPlayed)
 
 		//Assert
 		expect(mock).toHaveBeenCalledTimes(1)

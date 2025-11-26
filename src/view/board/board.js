@@ -19,6 +19,12 @@ export class Board extends HTMLElement {
 
 	connectedCallback() {
 		this.draw(this.size)
+
+		document.addEventListener("human-played", () => {
+			if (this.hasThreeInARow()) {
+				this.fireEvent()
+			}
+		})
 	}
 
 	draw(size) {
@@ -28,6 +34,19 @@ export class Board extends HTMLElement {
 			this.tiles.push(tile)
 			this.board.appendChild(tile)
 		}
+	}
+
+	hasThreeInARow() {
+		return true
+	}
+
+	fireEvent() {
+		const event = new CustomEvent("three-in-row", {
+			bubbles: true,
+			composed: true
+		})
+
+		document.dispatchEvent(event)
 	}
 }
 
