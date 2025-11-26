@@ -120,17 +120,17 @@ describe("Game", () => {
 		//Arrange
 		const boardMock = new BoardMock()
 		const game = new Game(boardMock, new AIMock(new RandomStub()), new TimerMock())
-		const getWinner = jest.spyOn(game, "getWinner")
+		const hasWinner = jest.spyOn(game, "hasWinner")
 
 		//Act
 		game.start()
 		boardMock.tiles[0].markCircle()
 		boardMock.tiles[1].markCircle()
 		boardMock.tiles[2].markCircle()
-		game.hasThreeInARow()
+		game.hasWinner([boardMock.tiles[0], boardMock.tiles[1], boardMock.tiles[2]])
 
 		//Assert
-		expect(getWinner).toHaveReturnedWith("player")
+		expect(hasWinner).toHaveReturnedWith("Player")
 	})
 
 	afterEach(() => {

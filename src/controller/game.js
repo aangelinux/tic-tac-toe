@@ -6,6 +6,16 @@ export class Game extends EventTarget {
 	#delayInMS = 1000 // between human and AI
 	#turn // number. need boundary tests to make sure turn is between 0-9
 	#player // current player: user | AI
+	#rows = [
+		["1", "2", "3"],
+		["4", "5", "6"],
+		["7", "8", "9"],
+		["1", "4", "7"],
+		["2", "5", "8"],
+		["3", "6", "9"],
+		["1", "5", "9"],
+		["3", "5", "7"]
+	]
 
 	constructor(board, ai, timer) {
 		super()
@@ -47,48 +57,41 @@ export class Game extends EventTarget {
 	}
 
 	hasThreeInARow() {
-		const matchingRows = [
-			["1", "2", "3"],
-			["4", "5", "6"],
-			["7", "8", "9"],
-			["1", "4", "7"],
-			["2", "5", "8"],
-			["3", "6", "9"],
-			["1", "5", "9"],
-			["3", "5", "7"]
-		]
+		for (const row of this.#rows) {
+			const currentRow = row.map(id =>
+				this.board.tiles.find((tile) => tile.getAttribute("id") === id)
+			)
+			
+			const winner = this.hasWinner(currentRow)
+			if (winner) {
+				return winner
+			} else {
+				continue
+			}
+		}
 
-		matchingRows.forEach((row) => {
-			let currentRow = []
-			row.forEach((id) => {
-				currentRow.push(this.board.tiles.find((tile) => tile.getAttribute("id") === id))
-			})
-			this.getWinner(currentRow)
-		})
+		return false
 	}
 
-	getWinner(row) {
-		let playerMatches = 0
+	hasWinner(row) {
 		let AIMatches = 0
-		row.forEach((tile) => {
+		let playerMatches = 0
+
+		for (const tile of row) {
 			if (tile.hasAttribute("circle")) {
 				playerMatches++
 			} else if (tile.hasAttribute("cross")) {
 				AIMatches++
-			} else {
-				return
 			}
-			if (playerMatches === 3) {
-				console.log("Player wins!")
-			} else if (AIMatches === 3) {
-				console.log("AI wins!")
-			} else {
-				return
-			}
-			AIMatches = 0
-			playerMatches = 0
-		})
 
-		return "player"
+			if (playerMatches === 3) {
+				return "Player"
+			}
+			if (AIMatches === 3) {
+				return "AI"
+			}
+		}
+
+		return null
 	}
 }
