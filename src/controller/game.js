@@ -6,7 +6,7 @@ export class Game extends EventTarget {
 	#delayInMS = 1000 // between human and AI
 	#turn // number. need boundary tests to make sure turn is between 0-9
 	#player // current player: user | AI
-	#rows = [
+	#adjacentRows = [
 		["1", "2", "3"],
 		["4", "5", "6"],
 		["7", "8", "9"],
@@ -57,7 +57,7 @@ export class Game extends EventTarget {
 	}
 
 	hasThreeInARow() {
-		for (const row of this.#rows) {
+		for (const row of this.#adjacentRows) {
 			const currentRow = row.map(id =>
 				this.board.tiles.find((tile) => tile.getAttribute("id") === id)
 			)
@@ -74,24 +74,24 @@ export class Game extends EventTarget {
 	}
 
 	hasWinner(row) {
-		let AIMatches = 0
-		let playerMatches = 0
+		let crosses = 0
+		let circles = 0
 
 		for (const tile of row) {
 			if (tile.hasAttribute("circle")) {
-				playerMatches++
+				circles++
 			} else if (tile.hasAttribute("cross")) {
-				AIMatches++
+				crosses++
 			}
 
-			if (playerMatches === 3) {
+			if (circles === 3) {
 				return "Player"
 			}
-			if (AIMatches === 3) {
+			if (crosses === 3) {
 				return "AI"
 			}
 		}
 
-		return null
+		return false
 	}
 }
