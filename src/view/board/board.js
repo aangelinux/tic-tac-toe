@@ -6,6 +6,17 @@ import { template } from "./board-template.js"
 import "../tile/tile.js"
 
 export class Board extends HTMLElement {
+	#adjacentRows = [
+		["1", "2", "3"],
+		["4", "5", "6"],
+		["7", "8", "9"],
+		["1", "4", "7"],
+		["2", "5", "8"],
+		["3", "6", "9"],
+		["1", "5", "9"],
+		["3", "5", "7"]
+	]
+
 	constructor() {
 		super()
 		
@@ -19,12 +30,6 @@ export class Board extends HTMLElement {
 
 	connectedCallback() {
 		this.draw(this.size)
-
-		document.addEventListener("human-played", () => {
-			if (this.hasThreeInARow()) {
-				this.fireEvent()
-			}
-		})
 	}
 
 	draw(size) {
@@ -37,16 +42,34 @@ export class Board extends HTMLElement {
 	}
 
 	hasThreeInARow() {
-		return true
+		for (const row of this.#adjacentRows) {
+			const tiles = this.#findTiles(row)
+
+			let crosses = 0
+			let circles = 0
+
+			for (const tile of tiles) {
+				if (tile.hasAttribute("circle")) {
+					circles++
+				} else if (tile.hasAttribute("cross")) {
+					crosses++
+				}
+
+				if (circles === 3) {
+					return "circle"
+				}
+				if (crosses === 3) {
+					return "cross"
+				}
+			}
+		}
+
+		return false
 	}
 
-	fireEvent() {
-		const event = new CustomEvent("three-in-row", {
-			bubbles: true,
-			composed: true
-		})
-
-		document.dispatchEvent(event)
+	#findTiles(row) {
+		return row.map(id =>
+			this.tiles.find((tile) => tile.getAttribute("id") === id))
 	}
 }
 

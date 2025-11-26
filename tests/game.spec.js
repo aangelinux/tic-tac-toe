@@ -120,34 +120,28 @@ describe("Game", () => {
 		//Arrange
 		const boardMock = new BoardMock()
 		const game = new Game(boardMock, new AIMock(new RandomStub()), new TimerMock())
-		const hasWinner = jest.spyOn(game, "hasWinner")
+		jest.spyOn(boardMock, "hasThreeInARow").mockReturnValueOnce("circle")
 
 		//Act
 		game.start()
-		boardMock.tiles[0].markCircle()
-		boardMock.tiles[1].markCircle()
-		boardMock.tiles[2].markCircle()
-		game.hasWinner([boardMock.tiles[0], boardMock.tiles[1], boardMock.tiles[2]])
+		const winner = game.hasThreeInARow()
 
 		//Assert
-		expect(hasWinner).toHaveReturnedWith("Player")
+		expect(winner).toBe("Player")
 	})
 
 	it("should return AI as winner if there are three crosses in a row", () => {
 		//Arrange
 		const boardMock = new BoardMock()
 		const game = new Game(boardMock, new AIMock(new RandomStub()), new TimerMock())
-		const hasWinner = jest.spyOn(game, "hasWinner")
+		jest.spyOn(boardMock, "hasThreeInARow").mockReturnValueOnce("cross")
 
 		//Act
 		game.start()
-		boardMock.tiles[0].markCross()
-		boardMock.tiles[1].markCross()
-		boardMock.tiles[2].markCross()
-		game.hasWinner([boardMock.tiles[0], boardMock.tiles[1], boardMock.tiles[2]])
+		const winner = game.hasThreeInARow()
 
 		//Assert
-		expect(hasWinner).toHaveReturnedWith("AI")
+		expect(winner).toBe("AI")
 	})
 
 	afterEach(() => {

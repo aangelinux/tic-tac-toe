@@ -19,6 +19,10 @@ export class BoardMock extends HTMLElement {
 			this.tiles.push(tile)
 		}
 	}
+
+	hasThreeInARow() {
+		return false
+	}
 }
 
 customElements.define("game-board", BoardMock)

@@ -2,7 +2,7 @@
  * Unit tests for the game board.
  */
 
-import { describe, it, expect, jest } from "@jest/globals"
+import { describe, it, expect } from "@jest/globals"
 import { Board } from "../src/view/board/board.js"
 import { Tile } from "../src/view/tile/tile.js"
 
@@ -20,18 +20,18 @@ describe("Board", () => {
 		expect(board.tiles[0]).toBeInstanceOf(Tile)
 	})
 
-	it("should fire event if there are three marks in a row", () => {
+	it("should check if there are three crosses in a row", () => {
 		//Arrange
 		const board = new Board()
 		document.body.appendChild(board)
-		const mock = jest.fn()
-		document.addEventListener("three-in-row", mock)
 
 		//Act
-		const humanPlayed = new CustomEvent("human-played", { bubbles: true, composed: true })
-		document.documentElement.dispatchEvent(humanPlayed)
+		board.tiles[0].markCross()
+		board.tiles[1].markCross()
+		board.tiles[2].markCross()
+		const mark = board.hasThreeInARow()
 
 		//Assert
-		expect(mock).toHaveBeenCalledTimes(1)
+		expect(mark).toBe("cross")
 	})
 })
