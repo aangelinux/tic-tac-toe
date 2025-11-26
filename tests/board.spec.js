@@ -34,4 +34,19 @@ describe("Board", () => {
 		//Assert
 		expect(mark).toBe("cross")
 	})
+
+	it("should check if there are three circles in a row", () => {
+		//Arrange
+		const board = new Board()
+		document.body.appendChild(board)
+
+		//Act
+		board.tiles[0].markCircle()
+		board.tiles[1].markCircle()
+		board.tiles[2].markCircle()
+		const mark = board.hasThreeInARow()
+
+		//Assert
+		expect(mark).toBe("circle")
+	})
 })
