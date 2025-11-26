@@ -63,26 +63,32 @@ export class Game extends EventTarget {
 			row.forEach((id) => {
 				currentRow.push(this.board.tiles.find((tile) => tile.getAttribute("id") === id))
 			})
-			let playerMatches = 0
-			let AIMatches = 0
-			currentRow.forEach((tile) => {
-				if (tile.hasAttribute("circle")) {
-					playerMatches++
-				} else if (tile.hasAttribute("cross")) {
-					AIMatches++
-				} else {
-					return
-				}
-				if (playerMatches === 3) {
-					console.log("Player wins!")
-				} else if (AIMatches === 3) {
-					console.log("AI wins!")
-				} else {
-					return
-				}
-				AIMatches = 0
-				playerMatches = 0
-			})
+			this.getWinner(currentRow)
 		})
+	}
+
+	getWinner(row) {
+		let playerMatches = 0
+		let AIMatches = 0
+		row.forEach((tile) => {
+			if (tile.hasAttribute("circle")) {
+				playerMatches++
+			} else if (tile.hasAttribute("cross")) {
+				AIMatches++
+			} else {
+				return
+			}
+			if (playerMatches === 3) {
+				console.log("Player wins!")
+			} else if (AIMatches === 3) {
+				console.log("AI wins!")
+			} else {
+				return
+			}
+			AIMatches = 0
+			playerMatches = 0
+		})
+
+		return "player"
 	}
 }

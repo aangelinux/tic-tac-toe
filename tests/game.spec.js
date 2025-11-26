@@ -123,13 +123,14 @@ describe("Game", () => {
 		const getWinner = jest.spyOn(game, "getWinner")
 
 		//Act
+		game.start()
 		boardMock.tiles[0].markCircle()
 		boardMock.tiles[1].markCircle()
 		boardMock.tiles[2].markCircle()
 		game.hasThreeInARow()
 
 		//Assert
-		expect(getWinner).toHaveReturned("player")
+		expect(getWinner).toHaveReturnedWith("player")
 	})
 
 	afterEach(() => {
