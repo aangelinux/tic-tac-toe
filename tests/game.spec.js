@@ -116,6 +116,22 @@ describe("Game", () => {
 		expect(hasThreeInARow).toHaveBeenCalledTimes(2)
 	})
 
+	it("should return player as winner if there are three circles in a row", () => {
+		//Arrange
+		const boardMock = new BoardMock()
+		const game = new Game(boardMock, new AIMock(new RandomStub()), new TimerMock())
+		const getWinner = jest.spyOn(game, "getWinner")
+
+		//Act
+		boardMock.tiles[0].markCircle()
+		boardMock.tiles[1].markCircle()
+		boardMock.tiles[2].markCircle()
+		game.hasThreeInARow()
+
+		//Assert
+		expect(getWinner).toHaveReturned("player")
+	})
+
 	afterEach(() => {
 		document.body.innerHTML = ""
 		jest.clearAllMocks()

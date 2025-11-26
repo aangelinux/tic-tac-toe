@@ -18,7 +18,7 @@ export class Game extends EventTarget {
 	start() {
 		document.body.appendChild(this.board)
 
-		document.addEventListener("human-played", () => {
+		document.addEventListener("human-played", () => {  // move to separate method
 			this.hasThreeInARow()
 			this.disableBoard()
 			this.timer.on(this.#delayInMS, () => {
