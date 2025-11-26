@@ -55,6 +55,9 @@ export class Board extends HTMLElement {
 					crosses++
 				}
 
+				if (circles === 3) {
+					return "circle"
+				}
 				if (crosses === 3) {
 					return "cross"
 				}
