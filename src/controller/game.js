@@ -23,8 +23,8 @@ export class Game extends EventTarget {
 			this.disableBoard()
 			this.timer.on(this.#delayInMS, () => {
 				this.aiMove()
-				this.enableBoard()
 				this.hasThreeInARow()
+				this.enableBoard()
 			})
 		})
 	}
