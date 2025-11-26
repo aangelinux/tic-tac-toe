@@ -24,6 +24,7 @@ export class Board extends HTMLElement {
 	draw(size) {
 		for (let i = 0; i < size; i++) {
 			const tile = document.createElement("board-tile")
+			tile.setAttribute("id", i + 1)
 			this.tiles.push(tile)
 			this.board.appendChild(tile)
 		}

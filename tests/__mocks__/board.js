@@ -15,6 +15,7 @@ export class BoardMock extends HTMLElement {
 	draw(size) {
 		for (let i = 0; i < size; i++) {
 			const tile = new TileMock()
+			tile.setAttribute("id", i + 1)
 			this.tiles.push(tile)
 		}
 	}

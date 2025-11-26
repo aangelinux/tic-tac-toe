@@ -3,10 +3,9 @@
  */
 
 export class Game extends EventTarget {
-	#delay = 1000 // delay between AI and human turn; in ms
+	#delayInMS = 1000 // between human and AI
 	#turn // number. need boundary tests to make sure turn is between 0-9
 	#player // current player: user | AI
-	#row // keep track of how many noughts/crosses currently in a row
 
 	constructor(board, ai, timer) {
 		super()
@@ -22,7 +21,7 @@ export class Game extends EventTarget {
 		document.addEventListener("human-played", () => {
 			this.hasThreeInARow()
 			this.disableBoard()
-			this.timer.on(this.#delay, () => {
+			this.timer.on(this.#delayInMS, () => {
 				this.aiMove()
 				this.enableBoard()
 			})
@@ -47,6 +46,42 @@ export class Game extends EventTarget {
 	}
 
 	hasThreeInARow() {
+		const matchingRows = [
+			["1", "2", "3"],
+			["4", "5", "6"],
+			["7", "8", "9"],
+			["1", "4", "7"],
+			["2", "5", "8"],
+			["3", "6", "9"],
+			["1", "5", "9"],
+			["3", "5", "7"]
+		]
 
+		matchingRows.forEach((row) => {
+			let currentRow = []
+			row.forEach((id) => {
+				currentRow.push(this.board.tiles.find((tile) => tile.getAttribute("id") === id))
+			})
+			let playerMatches = 0
+			let AIMatches = 0
+			currentRow.forEach((tile) => {
+				if (tile.hasAttribute("circle")) {
+					playerMatches++
+				} else if (tile.hasAttribute("cross")) {
+					AIMatches++
+				} else {
+					return
+				}
+				if (playerMatches === 3) {
+					console.log("Player wins!")
+				} else if (AIMatches === 3) {
+					console.log("AI wins!")
+				} else {
+					return
+				}
+				AIMatches = 0
+				playerMatches = 0
+			})
+		})
 	}
 }
