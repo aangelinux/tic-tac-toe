@@ -87,6 +87,9 @@ export class Game extends EventTarget {
 			if (playerMatches === 3) {
 				return "Player"
 			}
+			if (AIMatches === 3) {
+				return "AI"
+			}
 		}
 
 		return null
