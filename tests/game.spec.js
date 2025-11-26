@@ -146,15 +146,17 @@ describe("Game", () => {
 
 	it("should disable the board when there are three in a row", () => {
 		//Arrange
-		const game = new Game(new BoardMock(), new AIMock(new RandomStub()), new TimerMock())
-		const disableBoard = jest.spyOn(game, "disableBoard")
+		const boardMock = new BoardMock()
+		const game = new Game(boardMock, new AIMock(new RandomStub()), new TimerMock())
+		jest.spyOn(game, "hasThreeInARow").mockReturnValueOnce("Player")
 
 		//Act
 		game.start()
-		jest.spyOn(game, "hasThreeInARow").mockReturnValueOnce("Player")
+		const humanPlayed = new CustomEvent("human-played", { bubbles: true, composed: true })
+		document.documentElement.dispatchEvent(humanPlayed)
 
 		//Assert
-		expect(disableBoard).toHaveBeenCalledTimes(1)
+		expect(boardMock.tiles[0]).toHaveAttribute("disabled")
 	})
 
 	afterEach(() => {

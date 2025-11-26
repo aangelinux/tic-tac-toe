@@ -19,13 +19,17 @@ export class Game extends EventTarget {
 		document.body.appendChild(this.board)
 
 		document.addEventListener("human-played", () => {  // move to separate method
-			this.hasThreeInARow()
-			this.disableBoard()
-			this.timer.on(this.#delayInMS, () => {
-				this.aiMove()
-				this.hasThreeInARow()
-				this.enableBoard()
-			})
+			if (this.hasThreeInARow()) {
+				this.disableBoard()
+			} else {
+				this.disableBoard()
+				this.timer.on(this.#delayInMS, () => {
+					this.aiMove()
+					if (!this.hasThreeInARow()) {
+						this.enableBoard()
+					}				
+				})
+			}
 		})
 	}
 
@@ -47,11 +51,11 @@ export class Game extends EventTarget {
 	}
 
 	hasThreeInARow() {
-		const winner = this.board.hasThreeInARow()
+		const mark = this.board.hasThreeInARow()
 
-		if (winner === "cross") {
+		if (mark === "cross") {
 			return "AI"
-		} else if (winner === "circle") {
+		} else if (mark === "circle") {
 			return "Player"
 		} else {
 			return false
