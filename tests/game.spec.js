@@ -144,6 +144,19 @@ describe("Game", () => {
 		expect(winner).toBe("AI")
 	})
 
+	it("should disable the board when there are three in a row", () => {
+		//Arrange
+		const game = new Game(new BoardMock(), new AIMock(new RandomStub()), new TimerMock())
+		const disableBoard = jest.spyOn(game, "disableBoard")
+
+		//Act
+		game.start()
+		jest.spyOn(game, "hasThreeInARow").mockReturnValueOnce("Player")
+
+		//Assert
+		expect(disableBoard).toHaveBeenCalledTimes(1)
+	})
+
 	afterEach(() => {
 		document.body.innerHTML = ""
 		jest.clearAllMocks()
