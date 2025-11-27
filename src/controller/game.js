@@ -7,16 +7,19 @@ export class Game extends EventTarget {
 	#turn // number. need boundary tests to make sure turn is between 0-9
 	#player // current player: user | AI
 
-	constructor(board, ai, timer) {
+	constructor(board, ai, timer, ui) {
 		super()
 
 		this.board = board
 		this.ai = ai
 		this.timer = timer
+		this.ui = ui
 	}
 
 	start() {
+		document.body.appendChild(this.ui)
 		document.body.appendChild(this.board)
+		
 		document.addEventListener("human-played", () => this.playTurn())
 	}
 
