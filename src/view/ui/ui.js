@@ -1,5 +1,5 @@
 /**
- * Displays current player, turn, and eventual wins.
+ * Displays current player, turn, and eventual win or loss.
  */
 
 import { template } from "./ui-template.js"

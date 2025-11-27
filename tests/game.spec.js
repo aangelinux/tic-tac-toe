@@ -9,7 +9,7 @@ import { BoardMock } from "./__mocks__/board.js"
 import { AIMock } from "./__mocks__/ai.js"
 import { RandomStub } from "./__mocks__/random.js"
 import { TimerMock } from "./__mocks__/timer.js"
-import { UI } from '../src/view/ui/ui.js'
+import { UIMock } from './__mocks__/ui.js'
 
 describe("Game", () => {
 	beforeEach(() => {
@@ -19,21 +19,21 @@ describe("Game", () => {
 	it("should attach UI and Board to the DOM when game starts", () => {
 		//Arrange
 		const boardMock = new BoardMock()
-		const ui = new UI()
-		const game = new Game(boardMock, new AIMock(new RandomStub()), new TimerMock(), ui)
+		const uiMock = new UIMock()
+		const game = new Game(boardMock, new AIMock(new RandomStub()), new TimerMock(), uiMock)
 
 		//Act
 		game.start()
 
 		//Assert
 		expect(boardMock).toBeInTheDocument()
-		expect(ui).toBeInTheDocument()
+		expect(uiMock).toBeInTheDocument()
 	})
 	
 	it("should start a timer when player marks a tile", () => {
 		//Arrange
 		const timerMock = new TimerMock()
-		const game = new Game(new BoardMock(), new AIMock(new RandomStub()), timerMock, new UI())
+		const game = new Game(new BoardMock(), new AIMock(new RandomStub()), timerMock, new UIMock())
 		const timer = jest.spyOn(timerMock, "on")
 
 		//Act
@@ -48,7 +48,7 @@ describe("Game", () => {
 		//Arrange
 		const boardMock = new BoardMock()
 		const randomStub = new RandomStub()
-		const game = new Game(boardMock, new AIMock(randomStub), new TimerMock(), new UI())
+		const game = new Game(boardMock, new AIMock(randomStub), new TimerMock(), new UIMock())
 
 		//Act
 		game.start()
@@ -62,7 +62,7 @@ describe("Game", () => {
 	it("should disable board from player until AI has played", () => {
 		//Arrange
 		const boardMock = new BoardMock()
-		const game = new Game(boardMock, new AIMock(new RandomStub()), new TimerMock(), new UI())
+		const game = new Game(boardMock, new AIMock(new RandomStub()), new TimerMock(), new UIMock())
 
 		//Act
 		game.start()
@@ -75,7 +75,7 @@ describe("Game", () => {
 	it("should re-enable board when AI has played", () => {
 		//Arrange
 		const boardMock = new BoardMock()
-		const game = new Game(boardMock, new AIMock(new RandomStub()), new TimerMock(), new UI())
+		const game = new Game(boardMock, new AIMock(new RandomStub()), new TimerMock(), new UIMock())
 
 		//Act
 		game.start()
@@ -88,7 +88,7 @@ describe("Game", () => {
 
 	it("should check if there are three in a row after player turn", () => {
 		//Arrange
-		const game = new Game(new BoardMock(), new AIMock(new RandomStub()), new TimerMock(), new UI())
+		const game = new Game(new BoardMock(), new AIMock(new RandomStub()), new TimerMock(), new UIMock())
 		const hasThreeInARow = jest.spyOn(game, "hasThreeInARow")
 
 		//Act
@@ -101,7 +101,7 @@ describe("Game", () => {
 
 	it("should check if there are three in a row after AI turn", () => {
 		//Arrange
-		const game = new Game(new BoardMock(), new AIMock(new RandomStub()), new TimerMock(), new UI())
+		const game = new Game(new BoardMock(), new AIMock(new RandomStub()), new TimerMock(), new UIMock())
 		const hasThreeInARow = jest.spyOn(game, "hasThreeInARow")
 
 		//Act
@@ -116,7 +116,7 @@ describe("Game", () => {
 	it("should return player as winner if there are three circles in a row", () => {
 		//Arrange
 		const boardMock = new BoardMock()
-		const game = new Game(boardMock, new AIMock(new RandomStub()), new TimerMock(), new UI())
+		const game = new Game(boardMock, new AIMock(new RandomStub()), new TimerMock(), new UIMock())
 		jest.spyOn(boardMock, "hasThreeInARow").mockReturnValueOnce("circle")
 
 		//Act
@@ -130,7 +130,7 @@ describe("Game", () => {
 	it("should return AI as winner if there are three crosses in a row", () => {
 		//Arrange
 		const boardMock = new BoardMock()
-		const game = new Game(boardMock, new AIMock(new RandomStub()), new TimerMock(), new UI())
+		const game = new Game(boardMock, new AIMock(new RandomStub()), new TimerMock(), new UIMock())
 		jest.spyOn(boardMock, "hasThreeInARow").mockReturnValueOnce("cross")
 
 		//Act
@@ -144,7 +144,7 @@ describe("Game", () => {
 	it("should disable the board when there are three in a row", () => {
 		//Arrange
 		const boardMock = new BoardMock()
-		const game = new Game(boardMock, new AIMock(new RandomStub()), new TimerMock(), new UI())
+		const game = new Game(boardMock, new AIMock(new RandomStub()), new TimerMock(), new UIMock())
 		jest.spyOn(game, "hasThreeInARow").mockReturnValueOnce("Player")
 
 		//Act
