@@ -29,28 +29,16 @@ describe("Game", () => {
 		expect(timer).toHaveBeenCalledTimes(1)
 	})
 
-	it("should let AI play when timer runs out", () => {
+	it("should let AI mark a tile when timer runs out", () => {
 		//Arrange
-		const game = new Game(new BoardMock(), new AIMock(new RandomStub()), new TimerMock())
-		const aiMove = jest.spyOn(game, "aiMove")
+		const boardMock = new BoardMock()
+		const randomStub = new RandomStub()
+		const game = new Game(boardMock, new AIMock(randomStub), new TimerMock())
 
 		//Act
 		game.start()
 		game.playTurn()
 		jest.advanceTimersByTime(1000)
-
-		//Assert
-		expect(aiMove).toHaveBeenCalledTimes(1)
-	})
-
-	it("should tell Board to mark AI's chosen tile", () => {
-		//Arrange
-		const boardMock = new BoardMock()
-		const game = new Game(boardMock, new AIMock(new RandomStub()), new TimerMock())
-
-		//Act
-		game.start()
-		game.aiMove()
 
 		//Assert
 		expect(boardMock.tiles[8].svg.querySelector("line")).toBeInstanceOf(SVGElement)

@@ -66,9 +66,9 @@ export class Tile extends HTMLElement {
 	}
 
 	markCross() {
-		const forwardDiagonal = this.drawForwardDiagonal()
+		const forwardDiagonal = this.#drawForwardDiagonal()
 		this.svg.appendChild(forwardDiagonal)
-		const backwardDiagonal = this.drawBackwardDiagonal()
+		const backwardDiagonal = this.#drawBackwardDiagonal()
 		this.svg.appendChild(backwardDiagonal)
 
 		this.setAttribute("cross", "")
@@ -84,7 +84,7 @@ export class Tile extends HTMLElement {
 		return circle
 	}
 
-	drawForwardDiagonal() {
+	#drawForwardDiagonal() {
 		const cross = document.createElementNS("http://www.w3.org/2000/svg", "line")
 		cross.setAttribute("x1", (this.width / 4) * 3)
 		cross.setAttribute("y1", (this.width / 4))
@@ -95,7 +95,7 @@ export class Tile extends HTMLElement {
 		return cross
 	}
 
-	drawBackwardDiagonal() {
+	#drawBackwardDiagonal() {
 		const cross = document.createElementNS("http://www.w3.org/2000/svg", "line")
 		cross.setAttribute("x1", (this.width / 4))
 		cross.setAttribute("y1", (this.width / 4))

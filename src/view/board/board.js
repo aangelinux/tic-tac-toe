@@ -44,27 +44,36 @@ export class Board extends HTMLElement {
 	hasThreeInARow() {
 		for (const row of this.#adjacentRows) {
 			const tiles = this.#findTiles(row)
+			const matches = this.#getMatches(tiles)
 
-			let crosses = 0
-			let circles = 0
-
-			for (const tile of tiles) {
-				if (tile.hasAttribute("circle")) {
-					circles++
-				} else if (tile.hasAttribute("cross")) {
-					crosses++
-				}
-
-				if (circles === 3) {
-					return "circle"
-				}
-				if (crosses === 3) {
-					return "cross"
-				}
+			if (matches) {
+				return matches
 			}
 		}
 
 		return false
+	}
+
+	#getMatches(tiles) {
+		let crosses = 0
+		let circles = 0
+
+		for (const tile of tiles) {
+			if (tile.hasAttribute("circle")) {
+				circles++
+			} else if (tile.hasAttribute("cross")) {
+				crosses++
+			}
+
+			if (circles === 3) {
+				return "circle"
+			}
+			if (crosses === 3) {
+				return "cross"
+			}
+		}
+
+		return null
 	}
 
 	#findTiles(row) {

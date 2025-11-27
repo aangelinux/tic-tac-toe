@@ -21,33 +21,16 @@ export class Game extends EventTarget {
 	}
 
 	playTurn() {
-		this.disableBoard()
+		this.#disableBoard()
 
 		if (!this.hasThreeInARow()) {
 			this.timer.on(this.#delayInMS, () => {
-				this.aiMove()
+				this.#aiMove()
 				if (!this.hasThreeInARow()) {
-					this.enableBoard()
+					this.#enableBoard()
 				}				
 			})
 		}
-	}
-
-	disableBoard() {
-		this.board.tiles.forEach((tile) => {
-			tile.disable()
-		})
-	}
-
-	aiMove() {
-		const tile = this.ai.play(this.board)
-		tile.markCross()
-	}
-
-	enableBoard() {
-		this.board.tiles.forEach((tile) => {
-			tile.enable()
-		})
 	}
 
 	hasThreeInARow() {
@@ -60,5 +43,22 @@ export class Game extends EventTarget {
 		} else {
 			return false
 		}
+	}
+
+	#disableBoard() {
+		this.board.tiles.forEach((tile) => {
+			tile.disable()
+		})
+	}
+
+	#aiMove() {
+		const tile = this.ai.play(this.board)
+		tile.markCross()
+	}
+
+	#enableBoard() {
+		this.board.tiles.forEach((tile) => {
+			tile.enable()
+		})
 	}
 }
