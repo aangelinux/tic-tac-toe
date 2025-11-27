@@ -5,14 +5,29 @@
 import '@testing-library/jest-dom'
 import { describe, it, expect, jest, beforeEach, afterEach } from "@jest/globals"
 import { Game } from "../src/controller/game"
-import { AIMock } from "./__mocks__/ai.js"
 import { BoardMock } from "./__mocks__/board.js"
-import { TimerMock } from "./__mocks__/timer.js"
+import { AIMock } from "./__mocks__/ai.js"
 import { RandomStub } from "./__mocks__/random.js"
+import { TimerMock } from "./__mocks__/timer.js"
+import { UI } from '../src/view/ui/ui.js'
 
 describe("Game", () => {
 	beforeEach(() => {
 		jest.useFakeTimers()
+	})
+
+	it("should attach UI and Board to the DOM when game starts", () => {
+		//Arrange
+		const boardMock = new BoardMock()
+		const UI = new UI()
+		const game = new Game(boardMock, new AIMock(new RandomStub()), new TimerMock(), UI)
+
+		//Act
+		game.start()
+
+		//Assert
+		expect(boardMock).toBeInTheDocument()
+		expect(UI).toBeInTheDocument()
 	})
 	
 	it("should start a timer when player marks a tile", () => {

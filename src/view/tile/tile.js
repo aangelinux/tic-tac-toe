@@ -17,6 +17,8 @@ export class Tile extends HTMLElement {
 
 		this.tile = this.shadowRoot.querySelector(".tile")
 		this.svg = this.shadowRoot.querySelector(".svg")
+
+		this.abortController = new AbortController()
 	}
 
 	connectedCallback() {
@@ -27,7 +29,11 @@ export class Tile extends HTMLElement {
 				this.markCircle()
 				this.emitEvent()
 			}
-		})
+		}, { signal: this.abortController.signal })
+	}
+
+	disconnectedCallback() {
+		this.abortController.abort()
 	}
 
 	setSize() {
@@ -59,7 +65,7 @@ export class Tile extends HTMLElement {
 	}
 
 	markCircle() {
-		const circle = this.drawCircle()
+		const circle = this.#drawCircle()
 		this.svg.appendChild(circle)
 
 		this.setAttribute("circle", "")
@@ -74,7 +80,7 @@ export class Tile extends HTMLElement {
 		this.setAttribute("cross", "")
 	}
 
-	drawCircle() {
+	#drawCircle() {
 		const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle")
 		circle.setAttribute("r", (this.height / 4)) // Remove magic number
 		circle.setAttribute("cx", (this.width / 2))
