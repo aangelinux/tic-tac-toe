@@ -23,8 +23,7 @@ describe("Game", () => {
 
 		//Act
 		game.start()
-		const humanPlayed = new CustomEvent("human-played", { bubbles: true, composed: true })
-		document.documentElement.dispatchEvent(humanPlayed)
+		game.playTurn()
 
 		//Assert
 		expect(timer).toHaveBeenCalledTimes(1)
@@ -37,8 +36,7 @@ describe("Game", () => {
 
 		//Act
 		game.start()
-		const humanPlayed = new CustomEvent("human-played", { bubbles: true, composed: true })
-		document.documentElement.dispatchEvent(humanPlayed)
+		game.playTurn()
 		jest.advanceTimersByTime(1000)
 
 		//Assert
@@ -65,8 +63,7 @@ describe("Game", () => {
 
 		//Act
 		game.start()
-		const humanPlayed = new CustomEvent("human-played", { bubbles: true, composed: true })
-		document.documentElement.dispatchEvent(humanPlayed)
+		game.playTurn()
 
 		//Assert
 		expect(boardMock.tiles[0]).toHaveAttribute("disabled")
@@ -79,8 +76,7 @@ describe("Game", () => {
 
 		//Act
 		game.start()
-		const humanPlayed = new CustomEvent("human-played", { bubbles: true, composed: true })
-		document.documentElement.dispatchEvent(humanPlayed)
+		game.playTurn()
 		jest.advanceTimersByTime(1000)
 
 		//Assert
@@ -94,8 +90,7 @@ describe("Game", () => {
 
 		//Act
 		game.start()
-		const humanPlayed = new CustomEvent("human-played", { bubbles: true, composed: true })
-		document.documentElement.dispatchEvent(humanPlayed)
+		game.playTurn()
 
 		//Assert
 		expect(hasThreeInARow).toHaveBeenCalledTimes(1)
@@ -108,8 +103,7 @@ describe("Game", () => {
 
 		//Act
 		game.start()
-		const humanPlayed = new CustomEvent("human-played", { bubbles: true, composed: true })
-		document.documentElement.dispatchEvent(humanPlayed)
+		game.playTurn()
 		jest.advanceTimersByTime(1000)
 
 		//Assert
@@ -152,8 +146,7 @@ describe("Game", () => {
 
 		//Act
 		game.start()
-		const humanPlayed = new CustomEvent("human-played", { bubbles: true, composed: true })
-		document.documentElement.dispatchEvent(humanPlayed)
+		game.playTurn()
 
 		//Assert
 		expect(boardMock.tiles[0]).toHaveAttribute("disabled")

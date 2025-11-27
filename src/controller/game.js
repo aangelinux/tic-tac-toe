@@ -17,20 +17,20 @@ export class Game extends EventTarget {
 
 	start() {
 		document.body.appendChild(this.board)
+		document.addEventListener("human-played", () => this.playTurn())
+	}
 
-		document.addEventListener("human-played", () => {  // move to separate method
-			if (this.hasThreeInARow()) {
-				this.disableBoard()
-			} else {
-				this.disableBoard()
-				this.timer.on(this.#delayInMS, () => {
-					this.aiMove()
-					if (!this.hasThreeInARow()) {
-						this.enableBoard()
-					}				
-				})
-			}
-		})
+	playTurn() {
+		this.disableBoard()
+
+		if (!this.hasThreeInARow()) {
+			this.timer.on(this.#delayInMS, () => {
+				this.aiMove()
+				if (!this.hasThreeInARow()) {
+					this.enableBoard()
+				}				
+			})
+		}
 	}
 
 	disableBoard() {
