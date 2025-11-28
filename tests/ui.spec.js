@@ -34,12 +34,12 @@ describe("UI", () => {
 	it("should display current turn number", () => {
 		//Arrange
 		const ui = new UI()
-		const state = { turn: "Your", number: 8 }
+		const state = { number: 8 }
 
 		//Act
 		ui.update(state)
 
 		//Assert
-		expect(ui.div).toHaveTextContent("Turn: 8")
+		expect(ui.div).toHaveTextContent("Turn 8")
 	})
 })
