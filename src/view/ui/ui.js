@@ -21,7 +21,8 @@ export class UI extends HTMLElement {
 	update(state) {
 		const text = document.createElement("p")
 		const player = state.turn
-		text.textContent = `${player} Turn`
+		const number = state.number
+		text.textContent = `Turn: ${number}. ${player} Turn`
 
 		this.div.appendChild(text)
 	}
