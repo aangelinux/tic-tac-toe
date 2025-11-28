@@ -30,4 +30,16 @@ describe("UI", () => {
 		//Assert
 		expect(ui.div).toHaveTextContent("AI's Turn")		
 	})
+
+	it("should display current turn number", () => {
+		//Arrange
+		const ui = new UI()
+		const state = { turn: "Your", number: 8 }
+
+		//Act
+		ui.update(state)
+
+		//Assert
+		expect(ui.div).toHaveTextContent("Turn: 8")
+	})
 })
