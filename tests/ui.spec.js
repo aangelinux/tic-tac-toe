@@ -18,4 +18,16 @@ describe("UI", () => {
 		//Assert
 		expect(ui.div).toHaveTextContent("Your Turn")
 	})
+
+	it("should say 'AI's turn' when it's ai's turn", () => {
+		//Arrange
+		const ui = new UI()
+		const turn = { player: "AI" }
+
+		//Act
+		ui.update(turn)
+
+		//Assert
+		expect(ui.div).toHaveTextContent("AI's Turn")		
+	})
 })
