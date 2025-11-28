@@ -9,13 +9,13 @@ import { UI } from "../src/view/ui/ui"
 describe("UI", () => {
 	it("should say 'Your Turn' when it's player's turn", () => {
 		//Arrange
-		const ui = UI()
-		const turn = { turn: player }
+		const ui = new UI()
+		const turn = { turn: "player" }
 
 		//Act
 		ui.update(turn)
 
 		//Assert
-		expect(ui).toHaveTextContent("Your Turn")
+		expect(ui.ui).toHaveTextContent("Your Turn")
 	})
 })
