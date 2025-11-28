@@ -22,7 +22,7 @@ describe("UI", () => {
 	it("should say 'AI's turn' when it's ai's turn", () => {
 		//Arrange
 		const ui = new UI()
-		const turn = { player: "AI" }
+		const turn = { player: "AI's" }
 
 		//Act
 		ui.update(turn)
