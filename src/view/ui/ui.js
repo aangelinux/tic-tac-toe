@@ -18,9 +18,9 @@ export class UI extends HTMLElement {
 		this.addEventListener("new-turn", (e) => this.update(e.detail))
 	}
 
-	update(turn) {
+	update(state) {
 		const text = document.createElement("p")
-		const player = turn.player
+		const player = state.turn
 		text.textContent = `${player} Turn`
 
 		this.div.appendChild(text)

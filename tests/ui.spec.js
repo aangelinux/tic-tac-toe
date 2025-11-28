@@ -10,10 +10,10 @@ describe("UI", () => {
 	it("should say 'Your Turn' when it's player's turn", () => {
 		//Arrange
 		const ui = new UI()
-		const turn = { player: "Your" }
+		const state = { turn: "Your" }
 
 		//Act
-		ui.update(turn)
+		ui.update(state)
 
 		//Assert
 		expect(ui.div).toHaveTextContent("Your Turn")
@@ -22,10 +22,10 @@ describe("UI", () => {
 	it("should say 'AI's turn' when it's ai's turn", () => {
 		//Arrange
 		const ui = new UI()
-		const turn = { player: "AI's" }
+		const state = { turn: "AI's" }
 
 		//Act
-		ui.update(turn)
+		ui.update(state)
 
 		//Assert
 		expect(ui.div).toHaveTextContent("AI's Turn")		
