@@ -159,10 +159,10 @@ describe("Game", () => {
 		//Arrange
 		const uiMock = new UIMock()
 		const game = new Game(new BoardMock(), new AIMock(new RandomStub()), new TimerMock(), uiMock)
-
-		//Act
 		const mock = jest.fn()
 		uiMock.addEventListener("new-turn", mock)
+
+		//Act
 		game.start()
 		game.playTurn()
 
@@ -172,14 +172,18 @@ describe("Game", () => {
 
 	it("should increase turn number by 1 when a new turn starts", () => {
 		//Arrange
-		const game = new Game(new BoardMock(), new AIMock(new RandomStub()), new TimerMock(), new UIMock())
+		const uiMock = new UIMock()
+		const game = new Game(new BoardMock(), new AIMock(new RandomStub()), new TimerMock(), uiMock)
+		const handler = jest.fn()
+		uiMock.addEventListener("new-turn", handler)
 
 		//Act
 		game.start()
 		game.playTurn()
+		const event = handler.mock.calls[0][0]
 
 		//Assert
-		expect(game.turn).toBe(1)
+		expect(event.detail.number).toBe(1)
 	})
 
 	afterEach(() => {

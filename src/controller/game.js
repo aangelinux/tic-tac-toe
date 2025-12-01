@@ -3,9 +3,9 @@
  */
 
 export class Game extends EventTarget {
-	#delayInMS = 1000 // between human and AI
 	#turn = 0 // need boundary tests to make sure turn is between 0-9
-	#player = "Player"
+	#player = { Player: "Player", AI: "AI" }
+	#delayInMS = 1000
 
 	constructor(board, ai, timer, ui) {
 		super()
@@ -27,6 +27,7 @@ export class Game extends EventTarget {
 		this.#disableBoard()
 
 		if (!this.hasWinner()) {
+			this.#turn++
 			this.#updateUI()
 			this.timer.on(this.#delayInMS, () => {
 				this.#moveAI()
