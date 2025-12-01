@@ -89,20 +89,20 @@ describe("Game", () => {
 	it("should check if there are three in a row after player turn", () => {
 		//Arrange
 		const game = new Game(new BoardMock(), new AIMock(new RandomStub()), new TimerMock(), new UIMock())
-		const hasThreeInARow = jest.spyOn(game, "hasThreeInARow")
+		const hasWinner = jest.spyOn(game, "hasWinner")
 
 		//Act
 		game.start()
 		game.playTurn()
 
 		//Assert
-		expect(hasThreeInARow).toHaveBeenCalledTimes(1)
+		expect(hasWinner).toHaveBeenCalledTimes(1)
 	})
 
 	it("should check if there are three in a row after AI turn", () => {
 		//Arrange
 		const game = new Game(new BoardMock(), new AIMock(new RandomStub()), new TimerMock(), new UIMock())
-		const hasThreeInARow = jest.spyOn(game, "hasThreeInARow")
+		const hasWinner = jest.spyOn(game, "hasWinner")
 
 		//Act
 		game.start()
@@ -110,7 +110,7 @@ describe("Game", () => {
 		jest.advanceTimersByTime(1000)
 
 		//Assert
-		expect(hasThreeInARow).toHaveBeenCalledTimes(2)
+		expect(hasWinner).toHaveBeenCalledTimes(2)
 	})
 
 	it("should return player as winner if there are three circles in a row", () => {
@@ -121,7 +121,7 @@ describe("Game", () => {
 		//Act
 		jest.spyOn(boardMock, "hasThreeInARow").mockReturnValueOnce("circle")
 		game.start()
-		const winner = game.hasThreeInARow()
+		const winner = game.hasWinner()
 
 		//Assert
 		expect(winner).toBe("Player")
@@ -135,7 +135,7 @@ describe("Game", () => {
 		//Act
 		jest.spyOn(boardMock, "hasThreeInARow").mockReturnValueOnce("cross")
 		game.start()
-		const winner = game.hasThreeInARow()
+		const winner = game.hasWinner()
 
 		//Assert
 		expect(winner).toBe("AI")
@@ -147,7 +147,7 @@ describe("Game", () => {
 		const game = new Game(boardMock, new AIMock(new RandomStub()), new TimerMock(), new UIMock())
 
 		//Act
-		jest.spyOn(game, "hasThreeInARow").mockReturnValueOnce("Player")
+		jest.spyOn(game, "hasWinner").mockReturnValueOnce("Player")
 		game.start()
 		game.playTurn()
 

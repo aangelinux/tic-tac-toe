@@ -4,8 +4,8 @@
 
 export class Game extends EventTarget {
 	#delayInMS = 1000 // between human and AI
-	#turn // number. need boundary tests to make sure turn is between 0-9
-	#player // current player: user | AI
+	#turn = 0 // need boundary tests to make sure turn is between 0-9
+	#player = "Player"
 
 	constructor(board, ai, timer, ui) {
 		super()
@@ -26,25 +26,18 @@ export class Game extends EventTarget {
 	playTurn() {
 		this.#disableBoard()
 
-		if (!this.hasThreeInARow()) {
-			this.dispatchNewTurn()
+		if (!this.hasWinner()) {
+			this.#updateUI()
 			this.timer.on(this.#delayInMS, () => {
-				this.#aiMove()
-				if (!this.hasThreeInARow()) {
+				this.#moveAI()
+				if (!this.hasWinner()) {
 					this.#enableBoard()
 				}				
 			})
 		}
 	}
 
-	dispatchNewTurn() {
-		const event = new CustomEvent("new-turn", {
-			detail: { turn: "Player", number: 1 }
-		})
-		this.ui.dispatchEvent(event)
-	}
-
-	hasThreeInARow() {
+	hasWinner() {
 		const mark = this.board.hasThreeInARow()
 
 		if (mark === "cross") {
@@ -56,13 +49,21 @@ export class Game extends EventTarget {
 		}
 	}
 
+	#updateUI() {
+		const event = new CustomEvent("new-turn", {
+			detail: { turn: "Player", number: this.#turn }
+		})
+
+		this.ui.dispatchEvent(event)
+	}
+
 	#disableBoard() {
 		this.board.tiles.forEach((tile) => {
 			tile.disable()
 		})
 	}
 
-	#aiMove() {
+	#moveAI() {
 		const tile = this.ai.play(this.board)
 		tile.markCross()
 	}
