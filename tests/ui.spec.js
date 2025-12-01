@@ -7,39 +7,39 @@ import { describe, it, expect } from "@jest/globals"
 import { UI } from "../src/view/ui/ui"
 
 describe("UI", () => {
-	it("should say 'Your Turn' when it's player's turn", () => {
+	it("should say 'Player: Human' when it's player's turn", () => {
 		//Arrange
 		const ui = new UI()
-		const state = { turn: "Your" }
+		const state = { player: "Human" }
 
 		//Act
 		ui.update(state)
 
 		//Assert
-		expect(ui.div).toHaveTextContent("Your Turn")
+		expect(ui.text).toHaveTextContent("Player: Human")
 	})
 
-	it("should say 'AI's turn' when it's ai's turn", () => {
+	it("should say 'Player: AI' when it's ai's turn", () => {
 		//Arrange
 		const ui = new UI()
-		const state = { turn: "AI's" }
+		const state = { player: "AI" }
 
 		//Act
 		ui.update(state)
 
 		//Assert
-		expect(ui.div).toHaveTextContent("AI's Turn")		
+		expect(ui.text).toHaveTextContent("Player: AI")		
 	})
 
 	it("should display current turn number", () => {
 		//Arrange
 		const ui = new UI()
-		const state = { number: 8 }
+		const state = { turn: 8 }
 
 		//Act
 		ui.update(state)
 
 		//Assert
-		expect(ui.div).toHaveTextContent("Turn 8")
+		expect(ui.text).toHaveTextContent("Turn: 8")
 	})
 })

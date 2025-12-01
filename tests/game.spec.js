@@ -183,7 +183,7 @@ describe("Game", () => {
 		const event = handler.mock.calls[0][0]
 
 		//Assert
-		expect(event.detail.number).toBe(1)
+		expect(event.detail.turn).toBe(1)
 	})
 
 	afterEach(() => {

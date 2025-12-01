@@ -6,7 +6,7 @@ template.innerHTML = `
 		.board {
 			justify-self: center;
 			width: 500px;
-			height: 500px;
+			height: 480px;
 			display: grid;
 			grid-template-columns: auto auto auto;
 			grid-template-rows: auto auto auto;

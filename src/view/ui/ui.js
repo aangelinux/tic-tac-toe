@@ -11,7 +11,7 @@ export class UI extends HTMLElement {
 		this.attachShadow({ mode: 'open' })
 			.appendChild(template.content.cloneNode(true))
 		
-		this.div = this.shadowRoot.querySelector("#ui")
+		this.text = this.shadowRoot.querySelector("p")
 	}
 
 	connectedCallback() {
@@ -19,12 +19,9 @@ export class UI extends HTMLElement {
 	}
 
 	update(state) {
-		const text = document.createElement("p")
-		const player = state.turn
-		const number = state.number
-		text.textContent = `Turn ${number}. ${player} Turn`
-
-		this.div.appendChild(text)
+		const turn = state.turn
+		const player = state.player
+		this.text.textContent = `Turn: ${turn}, Player: ${player}`
 	}
 }
 
