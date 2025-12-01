@@ -199,7 +199,7 @@ describe("Game", () => {
 		const event = handler.mock.calls[0][0]
 
 		//Assert
-		expect(event.detail.player).toBe("Human")		
+		expect(event.detail.player).toBe("AI")		
 	})
 
 	afterEach(() => {

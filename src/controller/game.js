@@ -3,8 +3,8 @@
  */
 
 export class Game extends EventTarget {
-	#turn = 0 // need boundary tests to make sure turn is between 0-9
-	#player = { Human: "Human", AI: "AI" }
+	#turn = 0 // need boundary tests to make sure turn is between 1-9
+	#player = "Human"
 	#delayInMS = 1000
 
 	constructor(board, ai, timer, ui) {
@@ -27,12 +27,14 @@ export class Game extends EventTarget {
 		this.#disableBoard()
 
 		if (!this.hasWinner()) {
+			this.#player = "AI"
 			this.#turn++
 			this.#updateUI()
 			this.timer.on(this.#delayInMS, () => {
 				this.#moveAI()
 				if (!this.hasWinner()) {
 					this.#turn++
+					this.#player = "Human"
 					this.#updateUI()
 					this.#enableBoard()
 				}				
@@ -54,7 +56,7 @@ export class Game extends EventTarget {
 
 	#updateUI() {
 		const event = new CustomEvent("new-turn", {
-			detail: { player: "player", turn: this.#turn }
+			detail: { player: this.#player, turn: this.#turn }
 		})
 
 		this.ui.dispatchEvent(event)
