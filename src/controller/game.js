@@ -54,7 +54,7 @@ export class Game extends EventTarget {
 
 	#updateUI() {
 		const event = new CustomEvent("new-turn", {
-			detail: { player: "Human", turn: this.#turn }
+			detail: { player: "player", turn: this.#turn }
 		})
 
 		this.ui.dispatchEvent(event)

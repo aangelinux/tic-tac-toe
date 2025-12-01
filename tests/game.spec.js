@@ -186,6 +186,22 @@ describe("Game", () => {
 		expect(event.detail.turn).toBe(1)
 	})
 
+	it("should toggle player property between human and AI every turn", () => {
+		//Arrange
+		const uiMock = new UIMock()
+		const game = new Game(new BoardMock(), new AIMock(new RandomStub()), new TimerMock(), uiMock)
+		const handler = jest.fn()
+		uiMock.addEventListener("new-turn", handler)
+
+		//Act
+		game.start()
+		game.playTurn()
+		const event = handler.mock.calls[0][0]
+
+		//Assert
+		expect(event.detail.player).toBe("Human")		
+	})
+
 	afterEach(() => {
 		jest.clearAllMocks()
 		jest.clearAllTimers()
