@@ -117,9 +117,9 @@ describe("Game", () => {
 		//Arrange
 		const boardMock = new BoardMock()
 		const game = new Game(boardMock, new AIMock(new RandomStub()), new TimerMock(), new UIMock())
-		jest.spyOn(boardMock, "hasThreeInARow").mockReturnValueOnce("circle")
 
 		//Act
+		jest.spyOn(boardMock, "hasThreeInARow").mockReturnValueOnce("circle")
 		game.start()
 		const winner = game.hasThreeInARow()
 
@@ -131,9 +131,9 @@ describe("Game", () => {
 		//Arrange
 		const boardMock = new BoardMock()
 		const game = new Game(boardMock, new AIMock(new RandomStub()), new TimerMock(), new UIMock())
-		jest.spyOn(boardMock, "hasThreeInARow").mockReturnValueOnce("cross")
 
 		//Act
+		jest.spyOn(boardMock, "hasThreeInARow").mockReturnValueOnce("cross")
 		game.start()
 		const winner = game.hasThreeInARow()
 
@@ -145,14 +145,29 @@ describe("Game", () => {
 		//Arrange
 		const boardMock = new BoardMock()
 		const game = new Game(boardMock, new AIMock(new RandomStub()), new TimerMock(), new UIMock())
-		jest.spyOn(game, "hasThreeInARow").mockReturnValueOnce("Player")
 
 		//Act
+		jest.spyOn(game, "hasThreeInARow").mockReturnValueOnce("Player")
 		game.start()
 		game.playTurn()
 
 		//Assert
 		expect(boardMock.tiles[0]).toHaveAttribute("disabled")
+	})
+
+	it("should dispatch an event when a new turn starts", () => {
+		//Arrange
+		const uiMock = new UIMock()
+		const game = new Game(new BoardMock(), new AIMock(new RandomStub()), new TimerMock(), uiMock)
+
+		//Act
+		const mock = jest.fn()
+		uiMock.addEventListener("new-turn", mock)
+		game.start()
+		game.playTurn()
+
+		//Assert
+		expect(mock).toHaveBeenCalledTimes(1)
 	})
 
 	afterEach(() => {
