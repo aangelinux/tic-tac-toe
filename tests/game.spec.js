@@ -170,8 +170,19 @@ describe("Game", () => {
 		expect(mock).toHaveBeenCalledTimes(1)
 	})
 
+	it("should increase turn number by 1 when a new turn starts", () => {
+		//Arrange
+		const game = new Game(new BoardMock(), new AIMock(new RandomStub()), new TimerMock(), new UIMock())
+
+		//Act
+		game.start()
+		game.playTurn()
+
+		//Assert
+		expect(game.turn).toBe(1)
+	})
+
 	afterEach(() => {
-		document.body.innerHTML = ""
 		jest.clearAllMocks()
 		jest.clearAllTimers()
 	})
