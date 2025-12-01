@@ -27,6 +27,7 @@ export class Game extends EventTarget {
 		this.#disableBoard()
 
 		if (!this.hasThreeInARow()) {
+			this.dispatchNewTurn()
 			this.timer.on(this.#delayInMS, () => {
 				this.#aiMove()
 				if (!this.hasThreeInARow()) {
@@ -34,6 +35,13 @@ export class Game extends EventTarget {
 				}				
 			})
 		}
+	}
+
+	dispatchNewTurn() {
+		const event = new CustomEvent("new-turn", {
+			detail: { turn: "Player", number: 1 }
+		})
+		this.ui.dispatchEvent(event)
 	}
 
 	hasThreeInARow() {
