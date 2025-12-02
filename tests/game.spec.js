@@ -136,6 +136,21 @@ describe("Game AI", () => {
 		expect(boardMock.tiles[0]).not.toHaveAttribute("disabled")
 	})
 
+	it("should not re-enable the board if AI has three in a row", () => {
+		//Arrange
+		const boardMock = new BoardMock()
+		const game = new Game(boardMock, new AIMock(new RandomStub()), new TimerMock(), new UIMock())
+
+		//Act
+		game.start()
+		game.play()
+		jest.spyOn(game, "hasWinner").mockReturnValueOnce("AI")
+		jest.advanceTimersByTime(1000)
+
+		//Assert
+		expect(boardMock.tiles[0]).toHaveAttribute("disabled")		
+	})
+
 	it("should check if there are three marks in a row after AI's turn", () => {
 		//Arrange
 		const game = new Game(new BoardMock(), new AIMock(new RandomStub()), new TimerMock(), new UIMock())
