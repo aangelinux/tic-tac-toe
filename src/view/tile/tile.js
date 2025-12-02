@@ -80,6 +80,15 @@ export class Tile extends HTMLElement {
 		this.setAttribute("cross", "")
 	}
 
+	emitEvent() {
+		const event = new CustomEvent("human-played", {
+			bubbles: true,
+			composed: true
+		})
+
+		document.dispatchEvent(event)
+	}
+
 	#drawCircle() {
 		const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle")
 		circle.setAttribute("r", (this.height / 4)) // Remove magic number
@@ -110,15 +119,6 @@ export class Tile extends HTMLElement {
 		cross.classList.add("cross")
 
 		return cross
-	}
-
-	emitEvent() {
-		const event = new CustomEvent("human-played", {
-			bubbles: true,
-			composed: true
-		})
-
-		document.dispatchEvent(event)
 	}
 }
 

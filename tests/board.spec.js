@@ -7,20 +7,20 @@ import { Board } from "../src/view/board/board.js"
 import { Tile } from "../src/view/tile/tile.js"
 
 describe("Board", () => {
-	it("should create Tile objects", () => {
+	it("should create Tile objects and store them in an array", () => {
 		//Arrange
 		const board = new Board()
-		const size = 9
+		const tiles = 9
 
 		//Act
-		board.draw(size)
+		board.draw(tiles)
 
 		//Assert
-		expect(board.tiles).toHaveLength(size)
+		expect(board.tiles).toHaveLength(tiles)
 		expect(board.tiles[0]).toBeInstanceOf(Tile)
 	})
 
-	it("should check if there are three crosses in a row", () => {
+	it("should check if it has three crosses in a row", () => {
 		//Arrange
 		const board = new Board()
 		document.body.appendChild(board)
@@ -35,7 +35,7 @@ describe("Board", () => {
 		expect(mark).toBe("cross")
 	})
 
-	it("should check if there are three circles in a row", () => {
+	it("should check if it has three circles in a row", () => {
 		//Arrange
 		const board = new Board()
 		document.body.appendChild(board)

@@ -10,7 +10,7 @@ describe("Timer", () => {
 		jest.useFakeTimers()
 	})
 
-	it("should be able to start a timer", () => {
+	it("should start a timer", () => {
 		//Arrange
 		const timer = new Timer()
 		const milliSeconds = 200
@@ -23,7 +23,7 @@ describe("Timer", () => {
 		expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), milliSeconds)
 	})
 
-	it("should invoke the callback when timer runs out", () => {
+	it("should invoke the callback when the timer runs out", () => {
 		//Arrange
 		const timer = new Timer()
 		const milliSeconds = 200

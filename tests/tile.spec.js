@@ -6,7 +6,7 @@ import { describe, it, expect, jest, afterEach } from "@jest/globals"
 import { Tile } from "../src/view/tile/tile"
 
 describe("Tile", () => {
-	it("should set width and height when appended to the DOM", () => {
+	it("should set its width and height when appended to the DOM", () => {
 		//Arrange
 		const tile = new Tile()
 
@@ -18,7 +18,7 @@ describe("Tile", () => {
 		expect(tile).toHaveProperty("width")
 	})
 
-	it("should check if it's empty or marked when player clicks on it", () => {
+	it("should check if it's empty or marked when the player clicks on it", () => {
 		//Arrange
 		const tile = new Tile()
 		document.body.appendChild(tile)
@@ -31,20 +31,19 @@ describe("Tile", () => {
 		expect(isMarked).toHaveBeenCalledTimes(1)
 	})
 
-	it("should draw circle when player clicks on an empty tile", () => {
+	it("should draw a circle when the player clicks on an empty tile", () => {
 		//Arrange
 		const tile = new Tile()
 		document.body.appendChild(tile)
 
 		//Act
-		jest.spyOn(tile, "isMarked").mockReturnValueOnce(false)
 		tile.click()
 
 		//Assert
 		expect(tile.svg.querySelector("circle")).toBeInstanceOf(SVGElement)
 	})
 
-	it("should do nothing when player clicks on marked tile", () => {
+	it("should do nothing when the player clicks on marked tile", () => {
 		//Arrange
 		const tile = new Tile()
 		document.body.appendChild(tile)
@@ -58,7 +57,7 @@ describe("Tile", () => {
 		expect(mark).not.toHaveBeenCalled()
 	})
 
-	it("should fire event when a tile has been marked", () => {
+	it("should fire an event when the player marks a tile", () => {
 		//Arrange
 		const tile = new Tile()
 		const mock = jest.fn()
@@ -72,7 +71,7 @@ describe("Tile", () => {
 		expect(mock).toHaveBeenCalledTimes(1)
 	})
 
-	it("should draw cross when AI picks a tile", () => {
+	it("should draw a cross when the AI picks a tile", () => {
 		//Arrange
 		const tile = new Tile()
 		document.body.appendChild(tile)
@@ -94,7 +93,7 @@ describe("Tile", () => {
 		tile.disable()
 		tile.click()
 
-		//Expect
+		//Assert
 		expect(emitEvent).not.toHaveBeenCalled()
 	})
 
@@ -108,7 +107,7 @@ describe("Tile", () => {
 		tile.enable()
 		tile.click()
 
-		//Expect
+		//Assert
 		expect(emitEvent).toHaveBeenCalledTimes(1)		
 	})
 

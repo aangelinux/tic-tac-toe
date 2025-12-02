@@ -6,7 +6,7 @@ import { template } from "./board-template.js"
 import "../tile/tile.js"
 
 export class Board extends HTMLElement {
-	#adjacentRows = [
+	#possibleMatches = [
 		["1", "2", "3"],
 		["4", "5", "6"],
 		["7", "8", "9"],
@@ -42,7 +42,7 @@ export class Board extends HTMLElement {
 	}
 
 	hasThreeInARow() {
-		for (const row of this.#adjacentRows) {
+		for (const row of this.#possibleMatches) {
 			const tiles = this.#findTiles(row)
 			const matches = this.#getMatches(tiles)
 

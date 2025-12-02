@@ -12,10 +12,6 @@ import { TimerMock } from "./__mocks__/timer.js"
 import { UIMock } from './__mocks__/ui.js'
 
 describe("Game", () => {
-	beforeEach(() => {
-		jest.useFakeTimers()
-	})
-
 	it("should attach UI and Board to the DOM when game starts", () => {
 		//Arrange
 		const boardMock = new BoardMock()
@@ -30,7 +26,7 @@ describe("Game", () => {
 		expect(uiMock).toBeInTheDocument()
 	})
 	
-	it("should start a timer when player marks a tile", () => {
+	it("should start a timer when human player marks a tile", () => {
 		//Arrange
 		const timerMock = new TimerMock()
 		const game = new Game(new BoardMock(), new AIMock(new RandomStub()), timerMock, new UIMock())
@@ -38,82 +34,39 @@ describe("Game", () => {
 
 		//Act
 		game.start()
-		game.playTurn()
+		game.play()
 
 		//Assert
 		expect(timer).toHaveBeenCalledTimes(1)
 	})
 
-	it("should let AI mark a tile when timer runs out", () => {
-		//Arrange
-		const boardMock = new BoardMock()
-		const randomStub = new RandomStub()
-		const game = new Game(boardMock, new AIMock(randomStub), new TimerMock(), new UIMock())
-
-		//Act
-		game.start()
-		game.playTurn()
-		jest.advanceTimersByTime(1000)
-
-		//Assert
-		expect(boardMock.tiles[8].svg.querySelector("line")).toBeInstanceOf(SVGElement)
-	})
-
-	it("should disable board from player until AI has played", () => {
+	it("should disable the board from human player until AI has played", () => {
 		//Arrange
 		const boardMock = new BoardMock()
 		const game = new Game(boardMock, new AIMock(new RandomStub()), new TimerMock(), new UIMock())
 
 		//Act
 		game.start()
-		game.playTurn()
+		game.play()
 
 		//Assert
 		expect(boardMock.tiles[0]).toHaveAttribute("disabled")
 	})
 
-	it("should re-enable board when AI has played", () => {
-		//Arrange
-		const boardMock = new BoardMock()
-		const game = new Game(boardMock, new AIMock(new RandomStub()), new TimerMock(), new UIMock())
-
-		//Act
-		game.start()
-		game.playTurn()
-		jest.advanceTimersByTime(1000)
-
-		//Assert
-		expect(boardMock.tiles[0]).not.toHaveAttribute("disabled")
-	})
-
-	it("should check if there are three in a row after player turn", () => {
+	it("should check if there are three marks in a row after each turn", () => {
 		//Arrange
 		const game = new Game(new BoardMock(), new AIMock(new RandomStub()), new TimerMock(), new UIMock())
 		const hasWinner = jest.spyOn(game, "hasWinner")
 
 		//Act
 		game.start()
-		game.playTurn()
+		game.play()
 
 		//Assert
 		expect(hasWinner).toHaveBeenCalledTimes(1)
 	})
 
-	it("should check if there are three in a row after AI turn", () => {
-		//Arrange
-		const game = new Game(new BoardMock(), new AIMock(new RandomStub()), new TimerMock(), new UIMock())
-		const hasWinner = jest.spyOn(game, "hasWinner")
-
-		//Act
-		game.start()
-		game.playTurn()
-		jest.advanceTimersByTime(1000)
-
-		//Assert
-		expect(hasWinner).toHaveBeenCalledTimes(2)
-	})
-
-	it("should return player as winner if there are three circles in a row", () => {
+	it("should return human as winner if there are three circles in a row", () => {
 		//Arrange
 		const boardMock = new BoardMock()
 		const game = new Game(boardMock, new AIMock(new RandomStub()), new TimerMock(), new UIMock())
@@ -124,7 +77,77 @@ describe("Game", () => {
 		const winner = game.hasWinner()
 
 		//Assert
-		expect(winner).toBe("Player")
+		expect(winner).toBe("Human")
+	})
+
+	it("should disable the board when there are three in a row", () => {
+		//Arrange
+		const boardMock = new BoardMock()
+		const game = new Game(boardMock, new AIMock(new RandomStub()), new TimerMock(), new UIMock())
+
+		//Act
+		jest.spyOn(game, "hasWinner").mockReturnValueOnce("Human")
+		game.start()
+		game.play()
+
+		//Assert
+		expect(boardMock.tiles[0]).toHaveAttribute("disabled")
+	})
+
+	afterEach(() => {
+		document.body.innerHTML = ""
+		jest.clearAllMocks()
+		jest.clearAllTimers()
+	})
+})
+
+
+describe("Game AI", () => {
+	beforeEach(() => {
+		jest.useFakeTimers()
+	})
+
+	it("should let AI mark a tile when the timer runs out", () => {
+		//Arrange
+		const boardMock = new BoardMock()
+		const randomStub = new RandomStub()
+		const game = new Game(boardMock, new AIMock(randomStub), new TimerMock(), new UIMock())
+
+		//Act
+		game.start()
+		game.play()
+		jest.advanceTimersByTime(1000)
+
+		//Assert
+		expect(boardMock.tiles[8].svg.querySelector("line")).toBeInstanceOf(SVGElement)
+	})
+
+	it("should re-enable the board when AI has marked a tile", () => {
+		//Arrange
+		const boardMock = new BoardMock()
+		const game = new Game(boardMock, new AIMock(new RandomStub()), new TimerMock(), new UIMock())
+
+		//Act
+		game.start()
+		game.play()
+		jest.advanceTimersByTime(1000)
+
+		//Assert
+		expect(boardMock.tiles[0]).not.toHaveAttribute("disabled")
+	})
+
+	it("should check if there are three marks in a row after AI's turn", () => {
+		//Arrange
+		const game = new Game(new BoardMock(), new AIMock(new RandomStub()), new TimerMock(), new UIMock())
+		const hasWinner = jest.spyOn(game, "hasWinner")
+
+		//Act
+		game.start()
+		game.play()
+		jest.advanceTimersByTime(1000)
+
+		//Assert
+		expect(hasWinner).toHaveBeenCalledTimes(2)
 	})
 
 	it("should return AI as winner if there are three crosses in a row", () => {
@@ -141,21 +164,16 @@ describe("Game", () => {
 		expect(winner).toBe("AI")
 	})
 
-	it("should disable the board when there are three in a row", () => {
-		//Arrange
-		const boardMock = new BoardMock()
-		const game = new Game(boardMock, new AIMock(new RandomStub()), new TimerMock(), new UIMock())
-
-		//Act
-		jest.spyOn(game, "hasWinner").mockReturnValueOnce("Player")
-		game.start()
-		game.playTurn()
-
-		//Assert
-		expect(boardMock.tiles[0]).toHaveAttribute("disabled")
+	afterEach(() => {
+		document.body.innerHTML = ""
+		jest.clearAllMocks()
+		jest.clearAllTimers()
 	})
+})
 
-	it("should dispatch an event when a new turn starts", () => {
+
+describe("Game UI", () => {
+	it("should dispatch an event on the UI when a new turn starts", () => {
 		//Arrange
 		const uiMock = new UIMock()
 		const game = new Game(new BoardMock(), new AIMock(new RandomStub()), new TimerMock(), uiMock)
@@ -164,7 +182,7 @@ describe("Game", () => {
 
 		//Act
 		game.start()
-		game.playTurn()
+		game.play()
 
 		//Assert
 		expect(mock).toHaveBeenCalledTimes(1)
@@ -179,14 +197,14 @@ describe("Game", () => {
 
 		//Act
 		game.start()
-		game.playTurn()
+		game.play()
 		const event = handler.mock.calls[0][0]
 
 		//Assert
-		expect(event.detail.turn).toBe(1)
+		expect(event.detail.turn).toBe(2)
 	})
 
-	it("should toggle player property between human and AI every turn", () => {
+	it("should toggle the 'current player' value between human and AI every turn", () => {
 		//Arrange
 		const uiMock = new UIMock()
 		const game = new Game(new BoardMock(), new AIMock(new RandomStub()), new TimerMock(), uiMock)
@@ -195,7 +213,7 @@ describe("Game", () => {
 
 		//Act
 		game.start()
-		game.playTurn()
+		game.play()
 		const event = handler.mock.calls[0][0]
 
 		//Assert
@@ -203,6 +221,7 @@ describe("Game", () => {
 	})
 
 	afterEach(() => {
+		document.body.innerHTML = ""
 		jest.clearAllMocks()
 		jest.clearAllTimers()
 	})

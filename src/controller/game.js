@@ -3,7 +3,7 @@
  */
 
 export class Game extends EventTarget {
-	#turn = 0 // need boundary tests to make sure turn is between 1-9
+	#turn = 1 // could use some boundary tests
 	#player = "Human"
 	#delayInMS = 1000
 
@@ -19,17 +19,17 @@ export class Game extends EventTarget {
 	start() {
 		document.body.appendChild(this.ui)
 		document.body.appendChild(this.board)
-		
-		document.addEventListener("human-played", () => this.playTurn())
+		document.addEventListener("human-played", () => this.play())
 	}
 
-	playTurn() {
+	play() {
 		this.#disableBoard()
 
 		if (!this.hasWinner()) {
 			this.#player = "AI"
 			this.#turn++
 			this.#updateUI()
+			
 			this.timer.on(this.#delayInMS, () => {
 				this.#moveAI()
 				if (!this.hasWinner()) {
@@ -48,7 +48,7 @@ export class Game extends EventTarget {
 		if (mark === "cross") {
 			return "AI"
 		} else if (mark === "circle") {
-			return "Player"
+			return "Human"
 		} else {
 			return false
 		}
