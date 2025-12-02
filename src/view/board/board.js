@@ -50,6 +50,8 @@ export class Board extends HTMLElement {
 				return matches
 			}
 		}
+
+		return false
 	}
 
 	#getMatches(tiles) {
