@@ -3,7 +3,7 @@
  */
 
 import '@testing-library/jest-dom'
-import { describe, it, expect, jest } from "@jest/globals"
+import { describe, it, expect, jest, afterEach } from "@jest/globals"
 import { UI } from "../src/view/ui/ui"
 
 describe("UI", () => {
@@ -55,5 +55,9 @@ describe("UI", () => {
 
 		//Assert
 		expect(ui.text).toHaveTextContent("Turn: 8")
+	})
+
+	afterEach(() => {
+		document.body.innerHTML = ""
 	})
 })
