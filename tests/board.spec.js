@@ -29,10 +29,10 @@ describe("Board", () => {
 		board.tiles[0].markCross()
 		board.tiles[1].markCross()
 		board.tiles[2].markCross()
-		const mark = board.hasThreeInARow()
+		const threeInARow = board.hasThreeInARow()
 
 		//Assert
-		expect(mark).toBe("cross")
+		expect(threeInARow).toBe("cross")
 	})
 
 	it("should check if it has three circles in a row", () => {
@@ -44,10 +44,24 @@ describe("Board", () => {
 		board.tiles[0].markCircle()
 		board.tiles[1].markCircle()
 		board.tiles[2].markCircle()
-		const mark = board.hasThreeInARow()
+		const threeInARow = board.hasThreeInARow()
 
 		//Assert
-		expect(mark).toBe("circle")
+		expect(threeInARow).toBe("circle")
+	})
+
+	it("should return false if there are not three in a row", () => {
+		//Arrange
+		const board = new Board()
+		document.body.appendChild(board)
+
+		//Act
+		board.tiles[0].markCircle()
+		board.tiles[1].markCircle()
+		const threeInARow = board.hasThreeInARow()
+
+		//Assert
+		expect(threeInARow).toBe(false)
 	})
 
 	afterEach(() => {
