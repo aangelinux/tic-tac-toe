@@ -44,17 +44,23 @@ export class Board extends HTMLElement {
 	hasThreeInARow() {
 		for (const row of this.#possibleMatches) {
 			const tiles = this.#findTiles(row)
-			const matches = this.#getMatches(tiles)
+			const marks = this.#countMarks(tiles)
+			const match = this.#getMatch(marks)
 
-			if (matches) {
-				return matches
+			if (match) {
+				return match
 			}
 		}
 
 		return false
 	}
 
-	#getMatches(tiles) {
+	#findTiles(row) {
+		return row.map(id =>
+			this.tiles.find((tile) => tile.getAttribute("id") === id))
+	}
+
+	#countMarks(tiles) {
 		let crosses = 0
 		let circles = 0
 
@@ -64,21 +70,19 @@ export class Board extends HTMLElement {
 			} else if (tile.hasAttribute("cross")) {
 				crosses++
 			}
-
-			if (circles === 3) {
-				return "circle"
-			}
-			if (crosses === 3) {
-				return "cross"
-			}
 		}
 
-		return null
+		return { circles, crosses }
 	}
 
-	#findTiles(row) {
-		return row.map(id =>
-			this.tiles.find((tile) => tile.getAttribute("id") === id))
+	#getMatch(marks) {
+		if (marks.circles === 3) {
+			return "circle"
+		}
+		if (marks.crosses === 3) {
+			return "cross"
+		}
+		return null
 	}
 }
 

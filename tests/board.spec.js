@@ -50,7 +50,7 @@ describe("Board", () => {
 		expect(threeInARow).toBe("circle")
 	})
 
-	it("should return false if there are not three in a row", () => {
+	it("should return false if there are no three in a row", () => {
 		//Arrange
 		const board = new Board()
 		document.body.appendChild(board)
