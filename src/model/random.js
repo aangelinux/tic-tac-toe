@@ -4,16 +4,20 @@
 
 export class Random {
 	#value
+	#max
 
 	constructor() {
 		this.#value = null
+		this.#max = null
 	}
 
-	set value(boardSize) {
-		this.#value = Math.floor(Math.random() * boardSize)
+	set max(value) {
+		this.#max = value
 	}
 
 	get value() {
+		this.#value = Math.floor(Math.random() * this.#max)
+
 		return this.#value
 	}
 }

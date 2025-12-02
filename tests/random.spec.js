@@ -6,20 +6,22 @@ import { describe, it, expect } from "@jest/globals"
 import { Random } from "../src/model/random.js"
 
 describe("Random", () => {
-	it("should not generate a value greater than number of tiles", () => {
+	it("should generate a number less than or equal to the max", () => {
 		//Arrange
 		const random = new Random()
+		random.max = 8
 
 		//Act
-		random.value = 8
+		const value = random.value
 
 		//Assert
-		expect(random.value).toBeLessThanOrEqual(8)
+		expect(value).toBeLessThanOrEqual(8)	
 	})
 
-	it("should generate a number equal to or greater than 0", () => {
+	it("should generate a number greater than or equal to 0", () => {
 		//Arrange
 		const random = new Random()
+		random.max = 8
 
 		//Act
 		const value = random.value
