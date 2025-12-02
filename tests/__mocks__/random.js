@@ -1,15 +1,15 @@
 export class RandomStub {
-	#value
+	#max
 
 	constructor() {
-		this.#value = null
+		this.#max = null
 	}
 
-	set value(boardSize) {
-		this.#value = boardSize
+	set max(value) {
+		this.#max = value
 	}
 
 	get value() {
-		return this.#value
+		return this.#max
 	}
 }

@@ -9,7 +9,7 @@ import { BoardMock } from "./__mocks__/board.js"
 import { TileMock } from "./__mocks__/tile.js"
 
 describe("AI", () => {
-	it("should choose a random tile during their turn", () => {
+	it("should choose a random tile when it's their turn", () => {
 		//Arrange
 		const boardMock = new BoardMock()
 		const ai = new AI(new RandomStub())
@@ -22,19 +22,20 @@ describe("AI", () => {
 		expect(tile).toBeInstanceOf(TileMock)
 	})
 
-	it("should choose a new tile if tile is already marked", () => {
+	it("should choose a new tile if the chosen one is already marked", () => {
 		//Arrange
 		const boardMock = new BoardMock()
 		const ai = new AI(new RandomStub)
 		const randomize = jest.spyOn(ai, "randomize")
+		const max = 8
 
 		//Act
 		boardMock.draw(9)
-		jest.spyOn(boardMock.tiles[8], "isMarked").mockReturnValueOnce(true)
+		jest.spyOn(boardMock.tiles[max], "isMarked").mockReturnValueOnce(true)
 		ai.play(boardMock)
 
 		//Assert
-		expect(randomize).toHaveBeenCalledTimes(1)
+		expect(randomize).toHaveBeenCalledTimes(2)
 	})
 
 	afterEach(() => {

@@ -9,20 +9,19 @@ export class AI {
 	}
 
 	play(board) {
-		this.random.value = 8
-		let index = this.random.value
+		let index = this.randomize(board)
 		let tile = board.tiles[index]
 
 		while (tile.isMarked()) {
-			index = this.randomize()
+			index = this.randomize(board)
 			tile = board.tiles[index]
 		}
 
 		return tile
 	}
 
-	randomize() {
-		this.random.value = 8
+	randomize(board) {
+		this.random.max = board.tiles.length - 1
 		const index = this.random.value
 		
 		return index

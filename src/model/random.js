@@ -3,11 +3,9 @@
  */
 
 export class Random {
-	#value
 	#max
 
 	constructor() {
-		this.#value = null
 		this.#max = null
 	}
 
@@ -16,8 +14,6 @@ export class Random {
 	}
 
 	get value() {
-		this.#value = Math.floor(Math.random() * this.#max)
-
-		return this.#value
+		return Math.floor(Math.random() * this.#max)
 	}
 }

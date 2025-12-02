@@ -5,13 +5,13 @@ export class AIMock {
 	}
 
 	play(board) {
-		const index = this.randomize()
+		const index = this.randomize(board)
 
 		return board.tiles[index]
 	}
 
-	randomize() {
-		this.random.value = 8
+	randomize(board) {
+		this.random.max = board.tiles.length - 1
 
 		return this.random.value
 	}
