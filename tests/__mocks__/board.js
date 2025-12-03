@@ -6,10 +6,11 @@ export class BoardMock extends HTMLElement {
 		super()
 
 		this.tiles = []
+		this.size = 9
 	}
 
 	connectedCallback() {
-		this.draw(9)
+		this.draw(this.size)
 	}
 
 	draw(size) {

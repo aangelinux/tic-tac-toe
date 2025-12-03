@@ -25,13 +25,13 @@ export class Game extends EventTarget {
 	play() {
 		this.#disableBoard()
 
-		if (!this.hasWinner()) {
+		if (!this.hasWinner() && (this.#turn <= this.board.size)) {
 			this.#player = "AI"
 			this.#turn++
 			this.#updateUI()
 			this.timer.on(this.#delayInMS, () => {
 				this.#moveAI()
-				if (!this.hasWinner()) {
+				if (!this.hasWinner() && (this.#turn <= this.board.size)) {
 					this.#turn++
 					this.#player = "Human"
 					this.#updateUI()
