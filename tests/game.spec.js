@@ -94,6 +94,24 @@ describe("Game", () => {
 		expect(boardMock.tiles[0]).toHaveAttribute("disabled")
 	})
 
+	it("should not start a new turn if all tiles are marked", () => {
+		//Arrange
+		const boardMock = new BoardMock()
+		const game = new Game(boardMock, new AIMock(new RandomStub()), new TimerMock(), new UIMock())
+		const nrOfTiles = 1
+
+		//Act
+		jest.useFakeTimers()
+		boardMock.draw(nrOfTiles)
+		boardMock.tiles[0].markCircle()
+		game.start()
+		game.play()
+		jest.advanceTimersByTime(1000)
+
+		//Assert
+		expect(boardMock.tiles[0]).toHaveAttribute("disabled")
+	})
+
 	afterEach(() => {
 		document.body.innerHTML = ""
 		jest.clearAllMocks()
@@ -112,14 +130,16 @@ describe("Game AI", () => {
 		const boardMock = new BoardMock()
 		const randomStub = new RandomStub()
 		const game = new Game(boardMock, new AIMock(randomStub), new TimerMock(), new UIMock())
+		const tileAI = 8
 
 		//Act
+		randomStub.max = tileAI
 		game.start()
 		game.play()
 		jest.advanceTimersByTime(1000)
 
 		//Assert
-		expect(boardMock.tiles[8].svg.querySelector("line")).toBeInstanceOf(SVGElement)
+		expect(boardMock.tiles[tileAI].svg.querySelector("line")).toBeInstanceOf(SVGElement)
 	})
 
 	it("should re-enable the board when AI has marked a tile", () => {
@@ -192,15 +212,15 @@ describe("Game UI", () => {
 		//Arrange
 		const uiMock = new UIMock()
 		const game = new Game(new BoardMock(), new AIMock(new RandomStub()), new TimerMock(), uiMock)
-		const mock = jest.fn()
-		uiMock.addEventListener("new-turn", mock)
+		const handler = jest.fn()
+		uiMock.addEventListener("new-turn", handler)
 
 		//Act
 		game.start()
 		game.play()
 
 		//Assert
-		expect(mock).toHaveBeenCalledTimes(1)
+		expect(handler).toHaveBeenCalledTimes(1)
 	})
 
 	it("should increase turn number by 1 when a new turn starts", () => {

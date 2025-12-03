@@ -29,7 +29,6 @@ export class Game extends EventTarget {
 			this.#player = "AI"
 			this.#turn++
 			this.#updateUI()
-			
 			this.timer.on(this.#delayInMS, () => {
 				this.#moveAI()
 				if (!this.hasWinner()) {

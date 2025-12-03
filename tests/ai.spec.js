@@ -27,11 +27,11 @@ describe("AI", () => {
 		const boardMock = new BoardMock()
 		const ai = new AI(new RandomStub)
 		const randomize = jest.spyOn(ai, "randomize")
-		const max = 8
 
 		//Act
 		boardMock.draw(9)
-		jest.spyOn(boardMock.tiles[max], "isMarked").mockReturnValueOnce(true)
+		const chosenTile = boardMock.tiles.length - 1
+		jest.spyOn(boardMock.tiles[chosenTile], "isMarked").mockReturnValueOnce(true)
 		ai.play(boardMock)
 
 		//Assert
