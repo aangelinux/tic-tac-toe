@@ -12,7 +12,7 @@ Player should be able to mark one **empty** tile at a time by pressing on it. [x
 AI should mark a random **empty** tile when it's their turn. [x]
   
 ## Req 4 Game End
-Game should end when Player or AI has three marks in a row.
+Game should end when Player or AI has three marks in a row. [x]
   
 ## Req 5 Replay
 UI should contain a replay button that resets the game state (board & AI).
