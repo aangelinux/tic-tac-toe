@@ -102,10 +102,10 @@ describe("Game", () => {
 		boardMock.size = nrOfTiles
 
 		//Act
-		jest.useFakeTimers()
-		game.start()
 		boardMock.draw(nrOfTiles)
 		boardMock.tiles[0].markCircle()
+		jest.useFakeTimers()
+		game.start()
 		game.play()
 		jest.advanceTimersByTime(1000)
 

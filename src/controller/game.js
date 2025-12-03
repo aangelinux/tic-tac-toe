@@ -3,7 +3,7 @@
  */
 
 export class Game extends EventTarget {
-	#turn = 1 // could use some boundary tests
+	#turn = 1
 	#player = "Human"
 	#delayInMS = 1000
 
@@ -25,18 +25,14 @@ export class Game extends EventTarget {
 	play() {
 		this.#disableBoard()
 
-		if (!this.hasWinner() && (this.#turn <= this.board.size)) {
-			this.#player = "AI"
-			this.#turn++
-			this.#updateUI()
+		if (this.#startNewTurn()) {
+			this.#updateState("AI")
 			this.timer.on(this.#delayInMS, () => {
 				this.#moveAI()
-				if (!this.hasWinner() && (this.#turn <= this.board.size)) {
-					this.#turn++
-					this.#player = "Human"
-					this.#updateUI()
+				if (this.#startNewTurn()) {
+					this.#updateState("Human")
 					this.#enableBoard()
-				}				
+				}
 			})
 		}
 	}
@@ -53,11 +49,20 @@ export class Game extends EventTarget {
 		}
 	}
 
+	#startNewTurn() {
+		return (!this.hasWinner()) && (this.#turn <= this.board.size)
+	}
+
+	#updateState(player) {
+		this.#player = player
+		this.#turn++
+		this.#updateUI()		
+	}
+
 	#updateUI() {
 		const event = new CustomEvent("new-turn", {
 			detail: { player: this.#player, turn: this.#turn }
 		})
-
 		this.ui.dispatchEvent(event)
 	}
 
