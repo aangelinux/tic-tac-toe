@@ -94,17 +94,16 @@ describe("Game", () => {
 		expect(boardMock.tiles[0]).toHaveAttribute("disabled")
 	})
 
-	it("should not start a new turn if all tiles are marked", () => {
+	it("should not enable the board if turn nr equals or exceeds nr of tiles", () => {
 		//Arrange
 		const boardMock = new BoardMock()
 		const game = new Game(boardMock, new AIMock(new RandomStub()), new TimerMock(), new UIMock())
-		const nrOfTiles = 1
+		const nrOfTiles = 2
 		boardMock.size = nrOfTiles
+		jest.useFakeTimers()
 
 		//Act
 		boardMock.draw(nrOfTiles)
-		boardMock.tiles[0].markCircle()
-		jest.useFakeTimers()
 		game.start()
 		game.play()
 		jest.advanceTimersByTime(1000)
