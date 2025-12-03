@@ -50,7 +50,7 @@ export class Game extends EventTarget {
 	}
 
 	#startNewTurn() {
-		return (!this.hasWinner()) && (this.#turn <= this.board.size)
+		return (!this.hasWinner() && (this.#turn < this.board.size))
 	}
 
 	#updateState(player) {
