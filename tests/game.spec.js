@@ -112,6 +112,23 @@ describe("Game", () => {
 		expect(boardMock.tiles[0]).toHaveAttribute("disabled")
 	})
 
+	it("should not enable the board if all tiles are marked", () => {
+		//Arrange
+		const boardMock = new BoardMock()
+		const game = new Game(boardMock, new AIMock(new RandomStub()), new TimerMock(), new UIMock())
+		boardMock.draw(1)
+		boardMock.tiles[0].markCircle()
+
+		//Act
+		jest.useFakeTimers()
+		game.start()
+		game.play()
+		jest.advanceTimersByTime(1000)
+
+		//Assert
+		expect(boardMock.tiles[0]).toHaveAttribute("disabled")
+	})
+
 	afterEach(() => {
 		document.body.innerHTML = ""
 		jest.clearAllMocks()
