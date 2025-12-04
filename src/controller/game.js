@@ -50,7 +50,11 @@ export class Game extends EventTarget {
 	}
 
 	#startNewTurn() {
-		return (!this.hasWinner() && (this.#turn < this.board.size))
+		const allTilesMarked = this.board.tiles.every(tile =>
+			tile.svg?.querySelector("line") || tile.svg?.querySelector("circle")
+		)
+
+		return (!this.hasWinner() && (this.#turn < this.board.size) && !allTilesMarked)
 	}
 
 	#updateState(player) {

@@ -116,12 +116,11 @@ describe("Game", () => {
 		//Arrange
 		const boardMock = new BoardMock()
 		const game = new Game(boardMock, new AIMock(new RandomStub()), new TimerMock(), new UIMock())
-		boardMock.draw(1)
-		boardMock.tiles[0].markCircle()
+		jest.useFakeTimers()
 
 		//Act
-		jest.useFakeTimers()
-		game.start()
+		boardMock.draw(2)
+		boardMock.tiles[0].markCircle()
 		game.play()
 		jest.advanceTimersByTime(1000)
 
